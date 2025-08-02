@@ -31,15 +31,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+        navbar.style.background = 'rgba(248, 250, 252, 0.98)';
         navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+        navbar.style.background = 'rgba(248, 250, 252, 0.95)';
         navbar.style.boxShadow = 'none';
     }
 });
 
-// Intersection Observer for animations
+// Enhanced Intersection Observer for animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -49,6 +49,11 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('fade-in-up');
+            
+            // Animate counters in stats section
+            if (entry.target.classList.contains('about-stats')) {
+                animateCounters();
+            }
         }
     });
 }, observerOptions);
@@ -58,7 +63,7 @@ document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
 });
 
-// Skill bars animation
+// Enhanced skill bars animation
 const skillBars = document.querySelectorAll('.skill-fill');
 const skillObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -67,6 +72,7 @@ const skillObserver = new IntersectionObserver((entries) => {
             entry.target.style.width = '0%';
             setTimeout(() => {
                 entry.target.style.width = width;
+                entry.target.style.transition = 'width 1.5s ease';
             }, 100);
         }
     });
@@ -76,14 +82,34 @@ skillBars.forEach(bar => {
     skillObserver.observe(bar);
 });
 
-// Contact form handling
+// Animate counters function
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat h3');
+    counters.forEach(counter => {
+        const target = parseInt(counter.textContent);
+        const increment = target / 100;
+        let current = 0;
+        
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                counter.textContent = Math.ceil(current) + (counter.textContent.includes('%') ? '%' : '+');
+                setTimeout(updateCounter, 20);
+            } else {
+                counter.textContent = target + (counter.textContent.includes('%') ? '%' : '+');
+            }
+        };
+        updateCounter();
+    });
+}
+
+// Enhanced contact form handling
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
         // Get form data
-        const formData = new FormData(this);
         const name = this.querySelector('input[type="text"]').value;
         const email = this.querySelector('input[type="email"]').value;
         const subject = this.querySelectorAll('input[type="text"]')[1].value;
@@ -91,68 +117,83 @@ if (contactForm) {
         
         // Simple validation
         if (!name || !email || !subject || !message) {
-            alert('Please fill in all fields');
+            showNotification('Please fill in all fields', 'error');
             return;
         }
         
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address');
+            showNotification('Please enter a valid email address', 'error');
             return;
         }
         
-        // Simulate form submission
-        const submitBtn = this.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.disabled = true;
+        // Prepare email content
+        const emailBody = `
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+        `;
         
-        // Simulate API call
+        // Create mailto link
+        const mailtoLink = `mailto:whoisabishek@gmail.com?subject=Portfolio Contact: ${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+        
+        // Open default email client
+        window.open(mailtoLink);
+        
+        // Show success message
+        showNotification('Email client opened! Please send the email.', 'success');
+        this.reset();
+    });
+}
+
+// Notification system
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        color: white;
+        font-weight: 500;
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        max-width: 300px;
+    `;
+    
+    if (type === 'success') {
+        notification.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+    } else if (type === 'error') {
+        notification.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+    } else {
+        notification.style.background = 'linear-gradient(135deg, #3b82f6, #2563eb)';
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 5 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
         setTimeout(() => {
-            alert('Thank you for your message! I will get back to you soon.');
-            this.reset();
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    });
+            document.body.removeChild(notification);
+        }, 300);
+    }, 5000);
 }
-
-// Project card hover effects
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-    });
-});
-
-// Typing effect for hero title
-function typeWriter(element, text, speed = 100) {
-    let i = 0;
-    element.innerHTML = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-// Initialize typing effect when page loads
-window.addEventListener('load', () => {
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        const originalText = heroTitle.textContent;
-        typeWriter(heroTitle, originalText, 50);
-    }
-});
 
 // Parallax effect for hero section
 window.addEventListener('scroll', () => {
@@ -164,83 +205,131 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Active navigation link highlighting
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
+// Fade-in animation for hero title
+window.addEventListener('load', () => {
+    const heroTitle = document.querySelector('.hero-title');
+    if (heroTitle) {
+        heroTitle.style.opacity = '0';
+        heroTitle.style.transform = 'translateY(20px)';
+        heroTitle.style.transition = 'all 1s ease';
+        
+        setTimeout(() => {
+            heroTitle.style.opacity = '1';
+            heroTitle.style.transform = 'translateY(0)';
+        }, 500);
+    }
+});
+
+// Project card hover effects
+document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
     });
     
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// Skill item hover effects
+document.querySelectorAll('.skill-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateX(10px)';
+        this.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+    });
+    
+    item.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateX(0)';
+        this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+    });
+});
+
+
+
+// Social links hover effect
+document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px) scale(1.1)';
+    });
+    
+    link.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// Form input focus effects
+document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateY(-2px)';
+    });
+    
+    input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'translateY(0)';
+    });
+});
+
+// Smooth reveal animation for sections
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
         }
     });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('section').forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(50px)';
+    section.style.transition = 'all 0.8s ease';
+    revealObserver.observe(section);
+});
+
+// Theme toggle functionality
+const themeToggle = document.getElementById('theme-toggle');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Check for saved theme preference or default to light theme
+const currentTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', currentTheme);
+
+// Update toggle button icon based on current theme
+function updateToggleIcon() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const lightIcon = themeToggle.querySelector('.light-icon');
+    const darkIcon = themeToggle.querySelector('.dark-icon');
+    
+    if (isDark) {
+        lightIcon.style.display = 'none';
+        darkIcon.style.display = 'block';
+    } else {
+        lightIcon.style.display = 'block';
+        darkIcon.style.display = 'none';
+    }
+}
+
+// Initialize toggle icon
+updateToggleIcon();
+
+// Theme toggle event listener
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateToggleIcon();
+    
+    // Add smooth transition effect
+    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
 });
 
 // Add loading animation
 window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Counter animation for stats
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
     
-    function updateCounter() {
-        start += increment;
-        if (start < target) {
-            element.textContent = Math.floor(start) + '+';
-            requestAnimationFrame(updateCounter);
-        } else {
-            element.textContent = target + '+';
-        }
-    }
-    
-    updateCounter();
-}
-
-// Observe stats for counter animation
-const statsObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const statNumber = entry.target.querySelector('h3');
-            const text = statNumber.textContent;
-            const number = parseInt(text.replace(/\D/g, ''));
-            animateCounter(statNumber, number);
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-document.querySelectorAll('.stat').forEach(stat => {
-    statsObserver.observe(stat);
-});
-
-// Add CSS for active nav link
-const style = document.createElement('style');
-style.textContent = `
-    .nav-link.active {
-        color: #2563eb !important;
-    }
-    .nav-link.active::after {
-        width: 100% !important;
-    }
-    body.loaded {
-        opacity: 1;
-    }
-    body {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-`;
-document.head.appendChild(style); 
+    setTimeout(() => {
+        document.body.style.opacity = '1';
+    }, 100);
+}); 
