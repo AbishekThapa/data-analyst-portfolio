@@ -286,42 +286,56 @@ document.querySelectorAll('section').forEach(section => {
 });
 
 // Theme toggle functionality
-const themeToggle = document.getElementById('theme-toggle');
-const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-// Check for saved theme preference or default to light theme
-const currentTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', currentTheme);
-
-// Update toggle button icon based on current theme
-function updateToggleIcon() {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    const lightIcon = themeToggle.querySelector('.light-icon');
-    const darkIcon = themeToggle.querySelector('.dark-icon');
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('theme-toggle');
     
-    if (isDark) {
-        lightIcon.style.display = 'none';
-        darkIcon.style.display = 'block';
-    } else {
-        lightIcon.style.display = 'block';
-        darkIcon.style.display = 'none';
+    if (!themeToggle) {
+        console.error('Theme toggle button not found');
+        return;
     }
-}
 
-// Initialize toggle icon
-updateToggleIcon();
+    // Check for saved theme preference or default to light theme
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
 
-// Theme toggle event listener
-themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+    // Update toggle button icon based on current theme
+    function updateToggleIcon() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const lightIcon = themeToggle.querySelector('.light-icon');
+        const darkIcon = themeToggle.querySelector('.dark-icon');
+        
+        if (lightIcon && darkIcon) {
+            if (isDark) {
+                lightIcon.style.display = 'none';
+                darkIcon.style.display = 'block';
+            } else {
+                lightIcon.style.display = 'block';
+                darkIcon.style.display = 'none';
+            }
+        }
+    }
+
+    // Initialize toggle icon
     updateToggleIcon();
-    
-    // Add smooth transition effect
-    document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+
+    // Theme toggle event listener
+    themeToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateToggleIcon();
+        
+        // Add smooth transition effect
+        document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+        
+        // Log for debugging
+        console.log('Theme changed to:', newTheme);
+    });
 });
 
 // Add loading animation
