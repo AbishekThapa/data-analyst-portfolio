@@ -56,32 +56,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    window.addEventListener("scroll", () => {
-        requestAnimationFrame(handleScrollAnimation);
-    });
-    
-    // Initial check in case elements
+    window.addEventListener("scroll", handleScrollAnimation);
     handleScrollAnimation();
 
-    // Typing animation
-    const typingText = document.getElementById('typing-text');
-    if (typingText) {
-        const options = {
-            strings: ["Hi, It is <span class='gradient-text'>Abishek</span>"],
+    // Typing animation for the hero section
+    if (document.getElementById('typing-text')) {
+        var options = {
+            // === MODIFIED STRING FOR ABISHEK ANIMATION ===
+            strings: ["Hi, It is <span class='heading-fill-animation'><span class='heading-text gradient-text'>Abishek</span></span>"],
             typeSpeed: 50,
             backSpeed: 25,
             startDelay: 500,
             loop: false,
-            showCursor: false,
+            showCursor: true,
             cursorChar: '|',
             contentType: 'html',
             onComplete: (self) => {
-                if (self.cursor) {
-                    self.cursor.style.display = 'none';
-                }
-            }
+                self.cursor.style.display = 'none';
+            },
         };
-    
-        const typed = new Typed(typingText, options);
+
+        var typed = new Typed('#typing-text', options);
     }
 });

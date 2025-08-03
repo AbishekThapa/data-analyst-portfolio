@@ -8,22 +8,17 @@
   <meta http-equiv="Expires" content="0">
   <title>Abishek Thapa - Data Analyst Portfolio</title>
   
-  <!-- Main icon for all browser tabs -->
   <link rel="icon" href="favicon.png" type="image/png">
-  <!-- High-quality icon for "Add to Home Screen" on Apple devices -->
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <meta name="description" content="Data Analyst specializing in SQL, Python, Power BI, and ETL pipelines. Transforming data into actionable insights.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Typing Animation Library -->
   <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 
   <script>
-    // Apply theme immediately to prevent flash
     (function() {
       const stored = localStorage.getItem('theme');
       if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -31,14 +26,11 @@
       }
     })();
     
-    // Configure Tailwind immediately
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: {
-            inter: ['Inter', 'sans-serif']
-          },
+          fontFamily: { inter: ['Inter', 'sans-serif'] },
           colors: {
             accent: {
               50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
@@ -92,6 +84,37 @@
     .profile-container { position: relative; z-index: 1; }
     .profile-container:hover { z-index: 2; }
     a:focus-visible { outline: 3px solid rgba(59, 130, 246, 0.75); outline-offset: 2px; }
+
+    /* === STYLES FOR HEADING FILL ANIMATION === */
+    .heading-fill-animation {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .heading-fill-animation .heading-text {
+      position: relative;
+      z-index: 1;
+      transition: color 0.4s ease-out;
+    }
+    .heading-fill-animation::after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 0;
+      bottom: -8px; 
+      height: 4px;
+      width: 100%;
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      transition: height 0.3s ease-out, bottom 0.3s ease-out;
+    }
+    .heading-fill-animation:hover .heading-text {
+      color: white;
+      -webkit-text-fill-color: white; 
+    }
+    .heading-fill-animation:hover::after {
+      height: 100%;
+      bottom: 0;
+    }
   </style>
 </head>
 <body class="font-inter bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
@@ -104,6 +127,7 @@
             </div>
       
             <div class="flex items-center space-x-8">
+              <!-- === ORIGINAL NAVIGATION LINKS (RESTORED) === -->
               <ul class="hidden md:flex space-x-8">
                 <li><a href="#home" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Home<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
                 <li><a href="#about" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">About<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
@@ -128,7 +152,6 @@
               <a href="#contact" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Contact</a>
             </div>
           </div>
-          
         </div>
       </nav>
 
@@ -165,8 +188,9 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="animate-fade-in">
-          <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-6">About Me</h2>
-          <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-blue-600 mb-8"></div>
+          <h2 class="heading-fill-animation text-3xl md:text-4xl font-bold mb-12">
+            <span class="heading-text gradient-text">About Me</span>
+          </h2>
           <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
             <p class="mb-6 leading-relaxed animate-on-scroll text-justify">I am Abishek Thapa, an aspiring data analyst passionate about transforming raw data into clear, actionable insights. Currently, I am a student at Torrens University in Brisbane, pursuing my Master's in Business Information Systems.</p>
             <p class="mb-8 leading-relaxed animate-on-scroll text-justify">With hands-on detailed project in SQL, Python, Power BI, and ETL pipelines, I have built and optimized databases, designed interactive dashboards, and delivered meaningful visualizations that tell compelling stories.</p>
@@ -189,8 +213,9 @@
   <section id="skills" class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-6">Technical Skills</h2>
-        <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-blue-600 mx-auto mb-8"></div>
+        <h2 class="heading-fill-animation text-3xl md:text-4xl font-bold mb-12">
+            <span class="heading-text gradient-text">Technical Skills</span>
+        </h2>
         <p class="text-gray-600 dark:text-gray-300 mb-12 leading-relaxed max-w-2xl mx-auto">I specialize in data analysis, visualization, and database management with expertise in modern analytics tools and programming languages.</p>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in">
@@ -209,8 +234,9 @@
   <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Featured Projects</h2>
-        <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-blue-600 mx-auto rounded-full"></div>
+        <h2 class="heading-fill-animation text-3xl md:text-4xl font-bold mb-12">
+            <span class="heading-text gradient-text">Featured Projects</span>
+        </h2>
       </div>
       <div class="grid md:grid-cols-2 gap-8">
         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700"><div class="h-48 bg-gradient-to-br from-accent-600 to-blue-600 flex items-center justify-center"><i class="fas fa-database text-4xl text-white"></i></div><div class="p-6"><h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Yelp Academic Dataset ETL Pipeline</h3><p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Built a comprehensive ETL pipeline processing JSON files from Yelp Academic Dataset into PostgreSQL.</p><div class="flex flex-wrap gap-2 mb-4"><span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 text-sm rounded-full">Python</span><span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 text-sm rounded-full">PostgreSQL</span><span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 text-sm rounded-full">JSON</span></div><a href="https://github.com/AbishekThapa/data-analyst-portfolio" class="inline-flex items-center text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300 transition-colors duration-200" aria-label="View Yelp ETL project">View Project <i class="fas fa-arrow-right ml-2"></i></a></div></div>
@@ -224,8 +250,9 @@
   <section id="contact" class="py-20 bg-white dark:bg-gray-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 animate-slide-up">
-        <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Get In Touch</h2>
-        <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-blue-600 mx-auto rounded-full"></div>
+        <h2 class="heading-fill-animation text-3xl md:text-4xl font-bold mb-12">
+            <span class="heading-text gradient-text">Get In Touch</span>
+        </h2>
       </div>
       <div class="grid lg:grid-cols-2 gap-12">
         <div class="space-y-8 animate-fade-in">
