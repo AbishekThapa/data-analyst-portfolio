@@ -36,6 +36,8 @@
                         'glow': 'glow 0.3s ease-in-out',
                         'fill-left': 'fillLeft 0.3s ease-in-out',
                         'fill-right': 'fillRight 0.3s ease-in-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'typing': 'typing 3s steps(40, end)',
                     },
                     keyframes: {
                         fadeIn: {
@@ -58,6 +60,14 @@
                         fillRight: {
                             '0%': { transform: 'translateX(100%)' },
                             '100%': { transform: 'translateX(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' }
                         }
                     }
                 }
@@ -112,6 +122,16 @@
         .skill-card:active {
             animation: glow 0.3s ease-in-out;
         }
+        .typing-animation {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #f97316;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #f97316 }
+        }
     </style>
 </head>
 <body class="font-inter bg-gray-50 text-gray-900 transition-colors duration-300 ease-in-out dark:bg-gray-900 dark:text-gray-100">
@@ -125,19 +145,19 @@
                 
                 <!-- Desktop Navigation -->
                 <ul class="hidden md:flex space-x-8">
-                    <li><a href="#home" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Home
+                    <li><a href="#home" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Home
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
-                    <li><a href="#about" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">About
+                    <li><a href="#about" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">About
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
-                    <li><a href="#skills" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Skills
+                    <li><a href="#skills" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Skills
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
-                    <li><a href="#projects" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Projects
+                    <li><a href="#projects" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Projects
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
-                    <li><a href="#contact" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Contact
+                    <li><a href="#contact" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Contact
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
                 </ul>
@@ -159,11 +179,11 @@
             <!-- Mobile Navigation -->
             <div class="md:hidden hidden" id="mobile-menu">
                 <div class="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-                    <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Home</a>
-                    <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">About</a>
-                    <a href="#skills" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Skills</a>
-                    <a href="#projects" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Projects</a>
-                    <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Contact</a>
+                    <a href="#home" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Home</a>
+                    <a href="#about" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">About</a>
+                    <a href="#skills" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Skills</a>
+                    <a href="#projects" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Projects</a>
+                    <a href="#contact" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Contact</a>
                 </div>
             </div>
         </div>
@@ -175,11 +195,14 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <!-- Left Side - Content -->
                 <div class="text-center lg:text-left animate-fade-in">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 typing-animation">
                         Hi, I'm Abishek Thapa
                     </h1>
-                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
+                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                         Data Analytics Enthusiast
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
+                        Data Analyst specializing in SQL, Python, Power BI, and ETL pipelines. Transforming data into actionable insights.
                     </p>
                     
                     <!-- Action Buttons -->
@@ -194,10 +217,10 @@
                     
                     <!-- Social Links -->
                     <div class="flex justify-center lg:justify-start space-x-6">
-                        <a href="https://github.com/AbishekThapa" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
+                        <a href="https://github.com/AbishekThapa" target="_blank" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 transform hover:scale-110 transition-all duration-300">
                             <i class="fab fa-github text-2xl"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
+                        <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 transform hover:scale-110 transition-all duration-300">
                             <i class="fab fa-linkedin text-2xl"></i>
                         </a>
                     </div>
@@ -460,7 +483,7 @@
                         <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="w-12 h-12 bg-accent-600 hover:bg-accent-700 dark:bg-accent-700 dark:hover:bg-accent-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-linkedin text-lg"></i>
                         </a>
-                        <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200 transform hover:scale-110">
+                        <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 bg-accent-600 hover:bg-accent-700 dark:bg-accent-700 dark:hover:bg-accent-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-github text-lg"></i>
                         </a>
                     </div>
