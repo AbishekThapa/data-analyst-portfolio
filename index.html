@@ -17,63 +17,138 @@
                         'inter': ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        },
                         accent: {
-                            500: '#f59e0b',
-                            600: '#d97706',
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        gradient: {
+                            light: {
+                                from: '#67e8f9',
+                                to: '#c084fc'
+                            },
+                            dark: {
+                                from: '#22d3ee',
+                                to: '#a855f7'
+                            }
                         }
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
                         'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'glow': 'glow 0.3s ease-in-out',
+                        'fill-left': 'fillLeft 0.3s ease-in-out',
+                        'fill-right': 'fillRight 0.3s ease-in-out',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
                         fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(40px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 0 0 rgba(14, 165, 233, 0.4)' },
+                            '70%': { boxShadow: '0 0 0 10px rgba(14, 165, 233, 0)' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(14, 165, 233, 0)' },
+                        },
+                        fillLeft: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        fillRight: {
+                            '0%': { transform: 'translateX(100%)' },
+                            '100%': { transform: 'translateX(0)' },
                         }
                     }
-                }
             }
         }
     </script>
     <style>
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
+        .gradient-text {
+            background: linear-gradient(135deg, #67e8f9 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .animate-fade-in {
-            animation: fadeIn 0.6s ease-out;
+        .dark .gradient-text {
+            background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #67e8f9 0%, #c084fc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .dark .btn-gradient {
+            background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+        }
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .btn-gradient:hover::before {
+            transform: translateX(100%);
+        }
+        .btn-gradient span {
+            position: relative;
+            z-index: 1;
+        }
+        .skill-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .skill-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+        }
+        .skill-card:active {
+            animation: glow 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="font-inter bg-gray-50 text-gray-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
+<body class="font-inter bg-white text-gray-900 transition-colors duration-300 ease-in-out dark:bg-gray-900 dark:text-gray-100">
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-lg border-b border-gray-200 dark:bg-gray-900/95 dark:border-gray-700 z-50 transition-all duration-300">
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg dark:bg-gray-900/80 z-50 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex-shrink-0">
-                    <h2 class="text-xl font-bold text-primary-800 dark:text-primary-400">Abishek Thapa</h2>
+                    <h2 class="text-xl font-bold gradient-text">Abishek Thapa</h2>
                 </div>
                 
                 <!-- Desktop Navigation -->
                 <ul class="hidden md:flex space-x-8">
-                    <li><a href="#home" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors duration-200">Home</a></li>
-                    <li><a href="#about" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors duration-200">About</a></li>
-                    <li><a href="#skills" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors duration-200">Skills</a></li>
-                    <li><a href="#projects" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors duration-200">Projects</a></li>
-                    <li><a href="#contact" class="text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium transition-colors duration-200">Contact</a></li>
+                    <li><a href="#home" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#about" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">About
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#skills" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Skills
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#projects" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Projects
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#contact" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Contact
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                    </a></li>
                 </ul>
                 
                 <div class="flex items-center space-x-4">
@@ -93,49 +168,45 @@
             <!-- Mobile Navigation -->
             <div class="md:hidden hidden" id="mobile-menu">
                 <div class="px-2 pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-                    <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium">Home</a>
-                    <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium">About</a>
-                    <a href="#skills" class="block px-3 py-2 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium">Skills</a>
-                    <a href="#projects" class="block px-3 py-2 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium">Projects</a>
-                    <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 font-medium">Contact</a>
+                    <a href="#home" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Home</a>
+                    <a href="#about" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">About</a>
+                    <a href="#skills" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Skills</a>
+                    <a href="#projects" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Projects</a>
+                    <a href="#contact" class="block px-3 py-2 text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48Y2lyY2xlIGN4PSIzMCIgY3k9IjMwIiByPSIxIi8+PC9nPjwvZz48L3N2Zz4=')]"></div>
-        </div>
-        
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="text-center lg:text-left">
-                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
-                        Hi, I'm <span class="bg-gradient-to-r from-accent-500 to-yellow-400 bg-clip-text text-transparent">Abishek Thapa</span>
-                    </h1>
-                    <h2 class="text-xl md:text-2xl font-semibold text-gray-200 mb-6">Data Analytics Enthusiast</h2>
-                    <p class="text-lg text-gray-300 mb-8 leading-relaxed">
-                        Transforming complex datasets into actionable insights through SQL, Python, and Power BI. 
-                        Passionate about ETL pipelines, data visualization, and turning raw data into strategic business solutions.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#projects" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold rounded-lg hover:from-accent-600 hover:to-accent-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
-                            View My Work
-                        </a>
-                        <a href="#contact" class="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary-900 transition-all duration-200">
-                            Get In Touch
-                        </a>
-                    </div>
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+                    Hi, I'm Abishek Thapa
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
+                    Data Analytics Enthusiast
+                </p>
+                
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
+                    <button onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <span>Hire Me</span>
+                    </button>
+                    <button onclick="scrollToSection('projects')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <span>View Projects</span>
+                    </button>
                 </div>
-                <div class="flex justify-center lg:justify-end">
-                    <div class="relative">
-                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center animate-float">
-                            <img src="profile.jpeg" alt="Abishek Thapa - Data Analyst" class="w-60 h-60 md:w-72 md:h-72 rounded-full object-cover border-4 border-white/30 hover:scale-105 transition-transform duration-300">
-                        </div>
-                    </div>
+                
+                <!-- Social Links -->
+                <div class="flex justify-center space-x-6">
+                    <a href="https://github.com/AbishekThapa" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-github text-2xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
+                        <i class="fab fa-linkedin text-2xl"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -144,20 +215,22 @@
     <!-- About Section -->
     <section id="about" class="py-20 bg-white dark:bg-gray-800">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">About Me</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">About Me</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
             </div>
-            <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
-                <p class="mb-6 leading-relaxed">
+            <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 animate-fade-in">
+                <p class="mb-6 leading-relaxed text-center">
                     I am Abishek Thapa, an aspiring data analyst passionate about transforming raw data into clear, actionable insights. Currently, I am a student at Torrens University in Brisbane, pursuing my Master's in Business Information Systems.
                 </p>
-                <p class="mb-6 leading-relaxed">
-                    With hands-on detailed project in SQL, Python, Power BI, and ETL pipelines, I have built and optimized databases, designed interactive dashboards, and delivered meaningful visualizations that tell compelling stories. My projects include developing a South East Queensland Bus Route Database using GTFS data, creating an Australian Housing Market Power BI dashboard with advanced DAX, and engineering an ETL process for the Yelp Academic Dataset using PostgreSQL and Jupyter Notebook.
+                <p class="mb-8 leading-relaxed text-center">
+                    With hands-on detailed project in SQL, Python, Power BI, and ETL pipelines, I have built and optimized databases, designed interactive dashboards, and delivered meaningful visualizations that tell compelling stories.
                 </p>
-                <p class="leading-relaxed">
-                    I thrive at the intersection of problem-solving and data storytelling, with a strong focus on clean, efficient, and performance-optimized solutions. I am eager to contribute my analytical expertise to solve real-world business challenges and support data-driven decision-making.
-                </p>
+                <div class="text-center">
+                    <button class="btn-gradient text-white font-semibold py-3 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
+                        <span>Download CV</span>
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -165,110 +238,80 @@
     <!-- Skills Section -->
     <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-900">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Technical Skills</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Technical Skills</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
             </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Programming & Databases -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">Programming & Databases</h3>
-                    <div class="space-y-4">
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">SQL</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">95%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">Python</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">85%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">PostgreSQL</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">80%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 80%"></div>
-                            </div>
-                        </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- SQL -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-database text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">SQL</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced database querying and optimization</p>
                     </div>
                 </div>
 
-                <!-- Data Visualization & BI -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">Data Visualization & BI</h3>
-                    <div class="space-y-4">
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">Power BI</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">90%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">DAX Measures</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">75%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">Matplotlib/Seaborn</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">70%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 70%"></div>
-                            </div>
-                        </div>
+                <!-- Python -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fab fa-python text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Python</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data analysis and automation</p>
                     </div>
                 </div>
 
-                <!-- ETL & Data Engineering -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">ETL & Data Engineering</h3>
-                    <div class="space-y-4">
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">ETL Pipelines</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">85%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">Jupyter Notebooks</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">90%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-medium text-gray-700 dark:text-gray-300">SQLAlchemy</span>
-                                <span class="text-sm text-gray-500 dark:text-gray-400">65%</span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-primary-500 to-primary-600 h-2 rounded-full transition-all duration-1000" style="width: 65%"></div>
-                            </div>
-                        </div>
+                <!-- Power BI -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Power BI</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Business intelligence and dashboards</p>
+                    </div>
+                </div>
+
+                <!-- PostgreSQL -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-server text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">PostgreSQL</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Database management and optimization</p>
+                    </div>
+                </div>
+
+                <!-- ETL -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-cogs text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">ETL Pipelines</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data extraction and transformation</p>
+                    </div>
+                </div>
+
+                <!-- Jupyter -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-book text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Jupyter</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Interactive data analysis</p>
+                    </div>
+                </div>
+
+                <!-- DAX -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-calculator text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">DAX</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced data modeling</p>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-chart-pie text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Visualization</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data storytelling and insights</p>
                     </div>
                 </div>
             </div>
@@ -278,26 +321,25 @@
     <!-- Projects Section -->
     <section id="projects" class="py-20 bg-white dark:bg-gray-800">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Featured Projects</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Featured Projects</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-8">
                 <!-- Yelp ETL Pipeline -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
-                    <div class="h-48 bg-gradient-to-br from-primary-600 to-primary-700 flex items-center justify-center">
+                    <div class="h-48 bg-gradient-to-br from-accent-600 to-purple-600 flex items-center justify-center">
                         <i class="fas fa-database text-4xl text-white"></i>
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Yelp Academic Dataset ETL Pipeline</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Built a comprehensive ETL pipeline processing JSON files from Yelp Academic Dataset into PostgreSQL. Implemented data cleaning, transformation, and loading processes using Python and Jupyter Notebooks.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Built a comprehensive ETL pipeline processing JSON files from Yelp Academic Dataset into PostgreSQL.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm rounded-full">Python</span>
-                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm rounded-full">PostgreSQL</span>
-                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm rounded-full">JSON</span>
-                            <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-sm rounded-full">Jupyter</span>
+                            <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 text-sm rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 text-sm rounded-full">PostgreSQL</span>
+                            <span class="px-3 py-1 bg-accent-100 dark:bg-accent-900 text-accent-700 dark:text-accent-300 text-sm rounded-full">JSON</span>
                         </div>
-                        <a href="#" class="inline-flex items-center text-primary-600 dark:text-primary-400 font-semibold hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200">
+                        <a href="#" class="inline-flex items-center text-accent-600 dark:text-accent-400 font-semibold hover:text-accent-700 dark:hover:text-accent-300 transition-colors duration-200">
                             View Project <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -310,11 +352,10 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">South East Queensland Bus Route Database</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Developed a comprehensive bus route analysis system using GTFS data. Created interactive visualizations and route optimization algorithms using Python libraries including pandas, matplotlib, and seaborn.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Developed a comprehensive bus route analysis system using GTFS data with interactive visualizations.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm rounded-full">Python</span>
                             <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm rounded-full">GTFS</span>
-                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm rounded-full">SQLAlchemy</span>
                             <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm rounded-full">PostgreSQL</span>
                         </div>
                         <a href="#" class="inline-flex items-center text-green-600 dark:text-green-400 font-semibold hover:text-green-700 dark:hover:text-green-300 transition-colors duration-200">
@@ -330,11 +371,10 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Power BI Australian Housing Market Dashboard</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Created an advanced Power BI dashboard analyzing Australian housing market trends. Implemented complex DAX measures for market analysis, price predictions, and regional comparisons with interactive visualizations.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Created an advanced Power BI dashboard analyzing Australian housing market trends with complex DAX measures.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 text-sm rounded-full">Power BI</span>
                             <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 text-sm rounded-full">DAX</span>
-                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 text-sm rounded-full">Data Modeling</span>
                             <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 text-sm rounded-full">Advanced Analytics</span>
                         </div>
                         <a href="#" class="inline-flex items-center text-purple-600 dark:text-purple-400 font-semibold hover:text-purple-700 dark:hover:text-purple-300 transition-colors duration-200">
@@ -350,12 +390,11 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">SQL Optimization & Performance Tuning</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Developed real interview-style query challenges focusing on SQL optimization, performance tuning, and complex data analysis. Created solutions for large-scale datasets with focus on query efficiency and best practices.</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">Developed real interview-style query challenges focusing on SQL optimization and performance tuning.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 text-sm rounded-full">SQL</span>
                             <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 text-sm rounded-full">Performance Tuning</span>
                             <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 text-sm rounded-full">Query Optimization</span>
-                            <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 text-sm rounded-full">Advanced SQL</span>
                         </div>
                         <a href="#" class="inline-flex items-center text-orange-600 dark:text-orange-400 font-semibold hover:text-orange-700 dark:hover:text-orange-300 transition-colors duration-200">
                             View Project <i class="fas fa-arrow-right ml-2"></i>
@@ -366,63 +405,61 @@
         </div>
     </section>
 
-
-
     <!-- Contact Section -->
     <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Get In Touch</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
             </div>
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Contact Info -->
-                <div class="space-y-8">
+                <div class="space-y-8 animate-fade-in">
                     <div>
                         <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Let's Connect</h3>
                         <p class="text-gray-600 dark:text-gray-300 leading-relaxed">I'm always interested in new opportunities and exciting data projects. Feel free to reach out!</p>
                     </div>
                     <div class="space-y-4">
                         <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-envelope text-primary-600 dark:text-primary-400"></i>
+                            <div class="w-10 h-10 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-accent-600 dark:text-accent-400"></i>
                             </div>
                             <span class="text-gray-700 dark:text-gray-300">whoisabishek@gmail.com</span>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-map-marker-alt text-primary-600 dark:text-primary-400"></i>
+                            <div class="w-10 h-10 bg-accent-100 dark:bg-accent-900 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-accent-600 dark:text-accent-400"></i>
                             </div>
                             <span class="text-gray-700 dark:text-gray-300">Brisbane, Australia</span>
                         </div>
                     </div>
                     <div class="flex space-x-4">
-                        <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="w-12 h-12 bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200">
+                        <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="w-12 h-12 bg-accent-600 hover:bg-accent-700 dark:bg-accent-700 dark:hover:bg-accent-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-linkedin text-lg"></i>
                         </a>
-                        <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200">
+                        <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 bg-gray-800 hover:bg-gray-900 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-lg flex items-center justify-center text-white transition-colors duration-200 transform hover:scale-110">
                             <i class="fab fa-github text-lg"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Contact Form -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg">
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg animate-fade-in">
                     <form class="space-y-6">
                         <div>
-                            <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
+                            <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
                         </div>
                         <div>
-                            <input type="email" placeholder="Your Email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
+                            <input type="email" placeholder="Your Email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
                         </div>
                         <div>
-                            <input type="text" placeholder="Subject" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
+                            <input type="text" placeholder="Subject" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
                         </div>
                         <div>
-                            <textarea placeholder="Your Message" rows="5" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200 resize-none"></textarea>
+                            <textarea placeholder="Your Message" rows="5" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200 resize-none"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
-                            Send Message
+                        <button type="submit" class="w-full btn-gradient text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+                            <span>Send Message</span>
                         </button>
                     </form>
                 </div>
