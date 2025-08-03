@@ -125,12 +125,7 @@
         .typing-animation {
             overflow: hidden;
             white-space: nowrap;
-            border-right: 3px solid #3b82f6;
-            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: #3b82f6 }
+            animation: typing 3s steps(40, end);
         }
         .profile-glow {
             box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
@@ -213,14 +208,14 @@
                 
                 <!-- Right Side - Content -->
                 <div class="text-center lg:text-left animate-fade-in">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                        Hi, It's <span class="gradient-text">Abishek</span>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 typing-animation">
+                        Hi, It's <span class="gradient-text">Abishek Thapa</span>
                     </h1>
-                    <h2 class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 mb-6 typing-animation">
-                        I'm a <span class="gradient-text">Data Analyst</span>
+                    <h2 class="text-2xl md:text-3xl text-gray-600 dark:text-gray-300 mb-6">
+                        I'm an <span class="gradient-text">Aspiring Data Analyst</span>
                     </h2>
                     <p class="text-lg text-gray-600 dark:text-gray-300 mb-12 leading-relaxed max-w-lg">
-                        Data Analyst specializing in SQL, Python, Power BI, and ETL pipelines. Transforming data into actionable insights.
+                        Transforming complex datasets into actionable insights through SQL, Python, and Power BI. Passionate about ETL pipelines, data visualization, and turning raw data into strategic business solutions.
                     </p>
                     
                     <!-- Social Links -->
@@ -231,18 +226,17 @@
                         <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300">
                             <i class="fab fa-github text-xl"></i>
                         </a>
-                        <a href="#" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300">
-                            <i class="fab fa-twitter text-xl"></i>
-                        </a>
-                        <a href="#" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300">
-                            <i class="fab fa-instagram text-xl"></i>
-                        </a>
                     </div>
                     
-                    <!-- Action Button -->
-                    <button onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <span>Hire Me</span>
-                    </button>
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+                        <button onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span>Hire Me</span>
+                        </button>
+                        <button onclick="scrollToSection('projects')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span>View Projects</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -286,88 +280,85 @@
     <!-- Skills Section -->
     <section id="skills" class="py-20 bg-white dark:bg-gray-900">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <!-- Left Side - Content -->
-                <div class="animate-fade-in">
-                    <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-6">Technical Skills</h2>
-                    <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-blue-600 mb-8"></div>
-                    <p class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                        I specialize in data analysis, visualization, and database management with expertise in modern analytics tools and programming languages.
-                    </p>
+            <div class="text-center mb-16 animate-slide-up">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-6">Technical Skills</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-blue-600 mx-auto mb-8"></div>
+                <p class="text-gray-600 dark:text-gray-300 mb-12 leading-relaxed max-w-2xl mx-auto">
+                    I specialize in data analysis, visualization, and database management with expertise in modern analytics tools and programming languages.
+                </p>
+            </div>
+            
+            <!-- Skills Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in">
+                <!-- SQL -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-database text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">SQL</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced database querying and optimization</p>
+                    </div>
                 </div>
-                
-                <!-- Right Side - Skills Grid -->
-                <div class="grid md:grid-cols-2 gap-6 animate-slide-up">
-                    <!-- SQL -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-database text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">SQL</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced database querying and optimization</p>
-                        </div>
-                    </div>
 
-                    <!-- Python -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fab fa-python text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Python</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Data analysis and automation</p>
-                        </div>
+                <!-- Python -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fab fa-python text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Python</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data analysis and automation</p>
                     </div>
+                </div>
 
-                    <!-- Power BI -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-chart-line text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Power BI</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Business intelligence and dashboards</p>
-                        </div>
+                <!-- Power BI -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Power BI</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Business intelligence and dashboards</p>
                     </div>
+                </div>
 
-                    <!-- PostgreSQL -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-server text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">PostgreSQL</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Database management and optimization</p>
-                        </div>
+                <!-- PostgreSQL -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-server text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">PostgreSQL</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Database management and optimization</p>
                     </div>
+                </div>
 
-                    <!-- ETL -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-cogs text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">ETL Pipelines</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Data extraction and transformation</p>
-                        </div>
+                <!-- ETL -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-cogs text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">ETL Pipelines</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data extraction and transformation</p>
                     </div>
+                </div>
 
-                    <!-- Jupyter -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-book text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Jupyter</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Interactive data analysis</p>
-                        </div>
+                <!-- Jupyter -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-book text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Jupyter</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Interactive data analysis</p>
                     </div>
+                </div>
 
-                    <!-- DAX -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-calculator text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">DAX</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced data modeling</p>
-                        </div>
+                <!-- DAX -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-calculator text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">DAX</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced data modeling</p>
                     </div>
+                </div>
 
-                    <!-- Visualization -->
-                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                        <div class="text-center">
-                            <i class="fas fa-chart-pie text-4xl text-accent-500 mb-4"></i>
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Visualization</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm">Data storytelling and insights</p>
-                        </div>
+                <!-- Visualization -->
+                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                    <div class="text-center">
+                        <i class="fas fa-chart-pie text-4xl text-accent-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Visualization</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data storytelling and insights</p>
                     </div>
                 </div>
             </div>
