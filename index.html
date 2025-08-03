@@ -7,11 +7,9 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Abishek Thapa - Data Analyst Portfolio</title>
-  <!-- A standard favicon for all browsers -->
   <link rel="icon" href="favicon.png" type="image/png">
   <!-- A fallback for older browsers -->
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <!-- Icon for Apple devices -->
   <link rel="apple-touch-icon" href="favicon-64.png">
   <meta name="description" content="Data Analyst specializing in SQL, Python, Power BI, and ETL pipelines. Transforming data into actionable insights.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -187,14 +185,13 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between items-center h-16">
       
-            <!-- CHILD 1: This div now ONLY contains your name on the left. -->
+            <!-- CHILD 1. -->
             <div class="flex-shrink-0">
               <h2 class="text-xl font-bold gradient-text">Abishek Thapa</h2>
             </div>
       
-            <!-- CHILD 2: This div now groups the nav links AND buttons on the right. -->
             <div class="flex items-center space-x-8">
-              <!-- The navigation links are now here -->
+
               <ul class="hidden md:flex space-x-8">
                 <li><a href="#home" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Home
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
@@ -213,7 +210,7 @@
                   </a></li>
               </ul>
               
-              <!-- This div for buttons is now inside the main right-side group -->
+              <!-- This div for buttons inside the main right-side group -->
               <div class="flex items-center space-x-4">
                   <button id="theme-toggle" aria-label="toggle theme" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200">
                       <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
@@ -227,10 +224,18 @@
             </div>
           </div>
       
-          <!-- The mobile menu remains unchanged -->
+          <!-- The mobile menu dropdown -->
           <div class="md:hidden hidden" id="mobile-menu">
-              ...
+            <!-- These are the links that will appear when the hamburger is clicked -->
+            <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-700">
+              <a href="#home" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Home</a>
+              <a href="#about" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">About</a>
+              <a href="#skills" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Skills</a>
+              <a href="#projects" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Projects</a>
+              <a href="#contact" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Contact</a>
+            </div>
           </div>
+          
         </div>
       </nav>
 
