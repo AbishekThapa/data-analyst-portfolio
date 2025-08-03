@@ -7,14 +7,21 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Abishek Thapa - Data Analyst Portfolio</title>
+  
+  <!-- Main icon for all browser tabs -->
   <link rel="icon" href="favicon.png" type="image/png">
-  <!-- A fallback for older browsers -->
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="favicon-64.png">
+  <!-- High-quality icon for "Add to Home Screen" on Apple devices -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
   <meta name="description" content="Data Analyst specializing in SQL, Python, Power BI, and ETL pipelines. Transforming data into actionable insights.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Typing Animation Library -->
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+
   <script>
     // Apply theme immediately to prevent flash
     (function() {
@@ -34,52 +41,19 @@
           },
           colors: {
             accent: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              200: '#bfdbfe',
-              300: '#93c5fd',
-              400: '#60a5fa',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a'
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
+              500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a'
             }
           },
           animation: {
-            'fade-in': 'fadeIn 0.6s ease-out',
-            'slide-up': 'slideUp 0.8s ease-out',
-            glow: 'glow 0.3s ease-in-out',
-            'fill-left': 'fillLeft 0.3s ease-in-out',
-            'fill-right': 'fillRight 0.3s ease-in-out',
-            float: 'float 6s ease-in-out infinite'
+            'fade-in': 'fadeIn 0.6s ease-out', 'slide-up': 'slideUp 0.8s ease-out',
+            glow: 'glow 0.3s ease-in-out', float: 'float 6s ease-in-out infinite'
           },
           keyframes: {
-            fadeIn: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' }
-            },
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(40px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' }
-            },
-            glow: {
-              '0%': { boxShadow: '0 0 0 0 rgba(59, 130, 246, 0.4)' },
-              '70%': { boxShadow: '0 0 0 10px rgba(59, 130, 246, 0)' },
-              '100%': { boxShadow: '0 0 0 0 rgba(59, 130, 246, 0)' }
-            },
-            fillLeft: {
-              '0%': { transform: 'translateX(-100%)' },
-              '100%': { transform: 'translateX(0)' }
-            },
-            fillRight: {
-              '0%': { transform: 'translateX(100%)' },
-              '100%': { transform: 'translateX(0)' }
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-20px)' }
-            }
+            fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            slideUp: { '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+            glow: { '0%': { boxShadow: '0 0 0 0 rgba(59, 130, 246, 0.4)' }, '70%': { boxShadow: '0 0 0 10px rgba(59, 130, 246, 0)' }, '100%': { boxShadow: '0 0 0 0 rgba(59, 130, 246, 0)' } },
+            float: { '0%, 100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-20px)' } }
           }
         }
       }
@@ -88,96 +62,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    html {
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+    html { transition: background-color 0.3s ease, color 0.3s ease; }
     .gradient-text {
       background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     }
     .dark .gradient-text {
       background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
-    .btn-gradient {
-      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .dark .btn-gradient {
-      background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
-    }
+    .btn-gradient { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); position: relative; overflow: hidden; }
+    .dark .btn-gradient { background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%); }
     .btn-gradient::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
       background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
       transition: transform 0.3s ease-in-out;
     }
-    .btn-gradient:hover::before {
-      transform: translateX(100%);
-    }
-    .btn-gradient span {
-      position: relative;
-      z-index: 1;
-    }
-    .skill-card {
-      transition: all 0.3s ease-in-out;
-    }
-    .skill-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
-    }
-    .skill-card:active {
-      animation: glow 0.3s ease-in-out;
-    }
-
-    .profile-glow {
-      box-shadow: 0 0 50px rgba(59, 130, 246, 0.3);
-    }
-    .dark .profile-glow {
-      box-shadow: 0 0 50px rgba(147, 197, 253, 0.3);
-    }
-    .profile-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-    /* Test dark mode */
-    .dark .test-dark {
-      background-color: #1f2937 !important;
-      color: #f9fafb !important;
-    }
-    /* Scroll animation styles */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease-out;
-    }
-    .animate-on-scroll.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .profile-container {
-      position: relative;
-      z-index: 1;
-    }
-    .profile-container:hover {
-      z-index: 2;
-    }
-    a:focus-visible {
-      outline: 3px solid rgba(59, 130, 246, 0.75);
-      outline-offset: 2px;
-    }
+    .btn-gradient:hover::before { transform: translateX(100%); }
+    .btn-gradient span { position: relative; z-index: 1; }
+    .skill-card { transition: all 0.3s ease-in-out; }
+    .skill-card:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2); }
+    .skill-card:active { animation: glow 0.3s ease-in-out; }
+    .profile-glow { box-shadow: 0 0 50px rgba(59, 130, 246, 0.3); }
+    .dark .profile-glow { box-shadow: 0 0 50px rgba(147, 197, 253, 0.3); }
+    .profile-container img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+    .profile-container { position: relative; z-index: 1; }
+    .profile-container:hover { z-index: 2; }
+    a:focus-visible { outline: 3px solid rgba(59, 130, 246, 0.75); outline-offset: 2px; }
   </style>
 </head>
 <body class="font-inter bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
@@ -185,48 +99,27 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex justify-between items-center h-16">
       
-            <!-- CHILD 1. -->
             <div class="flex-shrink-0">
               <h2 class="text-xl font-bold gradient-text">Abishek Thapa</h2>
             </div>
       
             <div class="flex items-center space-x-8">
-
               <ul class="hidden md:flex space-x-8">
-                <li><a href="#home" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Home
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
-                  </a></li>
-                <li><a href="#about" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">About
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
-                  </a></li>
-                <li><a href="#skills" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Skills
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
-                  </a></li>
-                <li><a href="#projects" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Projects
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
-                  </a></li>
-                <li><a href="#contact" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Contact
-                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
-                  </a></li>
+                <li><a href="#home" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Home<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="#about" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">About<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="#skills" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Skills<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="#projects" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Projects<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="#contact" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Contact<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
               </ul>
               
-              <!-- This div for buttons inside the main right-side group -->
               <div class="flex items-center space-x-4">
-                  <button id="theme-toggle" aria-label="toggle theme" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200">
-                      <i class="fas fa-sun text-yellow-500 dark:hidden"></i>
-                      <i class="fas fa-moon text-blue-400 hidden dark:block"></i>
-                  </button>
-                  <button id="mobile-menu-btn" aria-label="menu" class="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200">
-                      <i class="fas fa-bars text-gray-700 dark:text-gray-300"></i>
-                      <i class="fas fa-times text-gray-700 dark:text-gray-300 hidden"></i>
-                  </button>
+                  <button id="theme-toggle" aria-label="toggle theme" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"><i class="fas fa-sun text-yellow-500 dark:hidden"></i><i class="fas fa-moon text-blue-400 hidden dark:block"></i></button>
+                  <button id="mobile-menu-btn" aria-label="menu" class="md:hidden p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"><i class="fas fa-bars text-gray-700 dark:text-gray-300"></i><i class="fas fa-times text-gray-700 dark:text-gray-300 hidden"></i></button>
               </div>
             </div>
           </div>
       
-          <!-- The mobile menu dropdown -->
           <div class="md:hidden hidden" id="mobile-menu">
-            <!-- These are the links that will appear when the hamburger is clicked -->
             <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200 dark:border-gray-700">
               <a href="#home" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">Home</a>
               <a href="#about" class="block px-3 py-2 text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium">About</a>
@@ -252,35 +145,23 @@
           </div>
         </div>
         <div class="text-center lg:text-left animate-fade-in">
-          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6" id="typing-text">
-            Hi, It is <span class="gradient-text">Abishek</span>
-          </h1>
-          <h2 class="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-6">
-            I am an <span class="gradient-text">Aspiring Data Analyst</span>
-          </h2>
-          <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-lg">
-            Transforming complex datasets into actionable insights through SQL, Python, and Power BI. Passionate about ETL pipelines, data visualization, and turning raw data into strategic business solutions.
-          </p>
+          <!-- The h1 is now empty. Typed.js will fill it. -->
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 whitespace-nowrap" id="typing-text"> </h1>
+          <h2 class="text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-6">I am an <span class="gradient-text">Aspiring Data Analyst</span></h2>
+          <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-lg">Transforming complex datasets into actionable insights through SQL, Python, and Power BI. Passionate about ETL pipelines, data visualization, and turning raw data into strategic business solutions.</p>
           <div class="flex justify-center lg:justify-start space-x-6 mb-8">
-            <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300" aria-label="LinkedIn profile">
-              <i class="fab fa-linkedin text-xl"></i>
-            </a>
-            <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300" aria-label="GitHub profile">
-              <i class="fab fa-github text-xl"></i>
-            </a>
+            <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300" aria-label="LinkedIn profile"><i class="fab fa-linkedin text-xl"></i></a>
+            <a href="https://github.com/AbishekThapa" target="_blank" class="w-12 h-12 border-2 border-accent-500 rounded-full flex items-center justify-center text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 hover:scale-110 transition-all duration-300" aria-label="GitHub profile"><i class="fab fa-github text-xl"></i></a>
           </div>
           <div class="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center lg:justify-start">
-            <button aria-label="Hire Me contact section" onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
-              <span>Hire Me</span>
-            </button>
-            <button aria-label="View Projects section" onclick="scrollToSection('projects')" class="btn-gradient text-white font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
-              <span>View Projects</span>
-            </button>
+            <button aria-label="Hire Me contact section" onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg"><span>Hire Me</span></button>
+            <button aria-label="View Projects section" onclick="scrollToSection('projects')" class="btn-gradient text-white font-semibold py-3 px-6 md:py-4 md:px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg"><span>View Projects</span></button>
           </div>
         </div>
       </div>
     </div>
   </section>
+
 
   <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

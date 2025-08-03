@@ -56,7 +56,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    window.addEventListener("scroll", handleScrollAnimation);
-    // Initial check in case elements are already in view
+    window.addEventListener("scroll", () => {
+        requestAnimationFrame(handleScrollAnimation);
+    });
+    
+    // Initial check in case elements
     handleScrollAnimation();
+
+    // Typing animation
+    const typingText = document.getElementById('typing-text');
+    if (typingText) {
+        const options = {
+            strings: ["Hi, It is <span class='gradient-text'>Abishek</span>"],
+            typeSpeed: 50,
+            backSpeed: 25,
+            startDelay: 500,
+            loop: false,
+            showCursor: false,
+            cursorChar: '|',
+            contentType: 'html',
+            onComplete: (self) => {
+                if (self.cursor) {
+                    self.cursor.style.display = 'none';
+                }
+            }
+        };
+    
+        const typed = new Typed(typingText, options);
+    }
 });
