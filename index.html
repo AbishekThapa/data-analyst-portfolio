@@ -18,26 +18,16 @@
                     },
                     colors: {
                         accent: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        },
-                        gradient: {
-                            light: {
-                                from: '#67e8f9',
-                                to: '#c084fc'
-                            },
-                            dark: {
-                                from: '#22d3ee',
-                                to: '#a855f7'
-                            }
+                            50: '#fff7ed',
+                            100: '#ffedd5',
+                            200: '#fed7aa',
+                            300: '#fdba74',
+                            400: '#fb923c',
+                            500: '#f97316',
+                            600: '#ea580c',
+                            700: '#c2410c',
+                            800: '#9a3412',
+                            900: '#7c2d12',
                         }
                     },
                     animation: {
@@ -57,9 +47,9 @@
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
                         glow: {
-                            '0%': { boxShadow: '0 0 0 0 rgba(14, 165, 233, 0.4)' },
-                            '70%': { boxShadow: '0 0 0 10px rgba(14, 165, 233, 0)' },
-                            '100%': { boxShadow: '0 0 0 0 rgba(14, 165, 233, 0)' },
+                            '0%': { boxShadow: '0 0 0 0 rgba(249, 115, 22, 0.4)' },
+                            '70%': { boxShadow: '0 0 0 10px rgba(249, 115, 22, 0)' },
+                            '100%': { boxShadow: '0 0 0 0 rgba(249, 115, 22, 0)' },
                         },
                         fillLeft: {
                             '0%': { transform: 'translateX(-100%)' },
@@ -70,29 +60,30 @@
                             '100%': { transform: 'translateX(0)' },
                         }
                     }
+                }
             }
         }
     </script>
     <style>
         .gradient-text {
-            background: linear-gradient(135deg, #67e8f9 0%, #c084fc 100%);
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .dark .gradient-text {
-            background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+            background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .btn-gradient {
-            background: linear-gradient(135deg, #67e8f9 0%, #c084fc 100%);
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
             position: relative;
             overflow: hidden;
         }
         .dark .btn-gradient {
-            background: linear-gradient(135deg, #22d3ee 0%, #a855f7 100%);
+            background: linear-gradient(135deg, #fdba74 0%, #fb923c 100%);
         }
         .btn-gradient::before {
             content: '';
@@ -101,7 +92,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
             transition: transform 0.3s ease-in-out;
         }
         .btn-gradient:hover::before {
@@ -116,14 +107,14 @@
         }
         .skill-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.2);
         }
         .skill-card:active {
             animation: glow 0.3s ease-in-out;
         }
     </style>
 </head>
-<body class="font-inter bg-white text-gray-900 transition-colors duration-300 ease-in-out dark:bg-gray-900 dark:text-gray-100">
+<body class="font-inter bg-gray-50 text-gray-900 transition-colors duration-300 ease-in-out dark:bg-gray-900 dark:text-gray-100">
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-lg dark:bg-gray-900/80 z-50 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -135,19 +126,19 @@
                 <!-- Desktop Navigation -->
                 <ul class="hidden md:flex space-x-8">
                     <li><a href="#home" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Home
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
                     <li><a href="#about" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">About
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
                     <li><a href="#skills" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Skills
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
                     <li><a href="#projects" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Projects
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
                     <li><a href="#contact" class="text-gray-700 hover:text-accent-600 dark:text-gray-300 dark:hover:text-accent-400 font-medium transition-colors duration-200 relative group">Contact
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-red-500 transition-all duration-300 group-hover:w-full"></span>
                     </a></li>
                 </ul>
                 
@@ -179,139 +170,171 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="animate-fade-in">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
-                    Hi, I'm Abishek Thapa
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
-                    Data Analytics Enthusiast
-                </p>
-                
-                <!-- Action Buttons -->
-                <div class="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-                    <button onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <span>Hire Me</span>
-                    </button>
-                    <button onclick="scrollToSection('projects')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <span>View Projects</span>
-                    </button>
+    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Side - Content -->
+                <div class="text-center lg:text-left animate-fade-in">
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+                        Hi, I'm Abishek Thapa
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
+                        Data Analytics Enthusiast
+                    </p>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mb-12">
+                        <button onclick="scrollToSection('contact')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span>Hire Me</span>
+                        </button>
+                        <button onclick="scrollToSection('projects')" class="btn-gradient text-white font-semibold py-4 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span>View Projects</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Social Links -->
+                    <div class="flex justify-center lg:justify-start space-x-6">
+                        <a href="https://github.com/AbishekThapa" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                    </div>
                 </div>
                 
-                <!-- Social Links -->
-                <div class="flex justify-center space-x-6">
-                    <a href="https://github.com/AbishekThapa" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
-                        <i class="fab fa-github text-2xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/abishek-thapa-03b700153/" target="_blank" class="text-gray-600 hover:text-accent-600 dark:text-gray-400 dark:hover:text-accent-400 transform hover:scale-110 transition-all duration-300">
-                        <i class="fab fa-linkedin text-2xl"></i>
-                    </a>
+                <!-- Right Side - Photo -->
+                <div class="flex justify-center lg:justify-end">
+                    <div class="relative">
+                        <div class="w-64 h-64 md:w-80 md:h-80 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center animate-float">
+                            <img src="profile.jpeg" alt="Abishek Thapa - Data Analyst" class="w-60 h-60 md:w-72 md:h-72 rounded-full object-cover border-4 border-white/30 hover:scale-105 transition-transform duration-300">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-white dark:bg-gray-800">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-slide-up">
-                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">About Me</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 animate-fade-in">
-                <p class="mb-6 leading-relaxed text-center">
-                    I am Abishek Thapa, an aspiring data analyst passionate about transforming raw data into clear, actionable insights. Currently, I am a student at Torrens University in Brisbane, pursuing my Master's in Business Information Systems.
-                </p>
-                <p class="mb-8 leading-relaxed text-center">
-                    With hands-on detailed project in SQL, Python, Power BI, and ETL pipelines, I have built and optimized databases, designed interactive dashboards, and delivered meaningful visualizations that tell compelling stories.
-                </p>
-                <div class="text-center">
-                    <button class="btn-gradient text-white font-semibold py-3 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
-                        <span>Download CV</span>
-                    </button>
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Side - Content -->
+                <div class="animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-6">About Me</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-red-500 mb-8"></div>
+                    <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
+                        <p class="mb-6 leading-relaxed">
+                            I am Abishek Thapa, an aspiring data analyst passionate about transforming raw data into clear, actionable insights. Currently, I am a student at Torrens University in Brisbane, pursuing my Master's in Business Information Systems.
+                        </p>
+                        <p class="mb-8 leading-relaxed">
+                            With hands-on detailed project in SQL, Python, Power BI, and ETL pipelines, I have built and optimized databases, designed interactive dashboards, and delivered meaningful visualizations that tell compelling stories.
+                        </p>
+                        <button class="btn-gradient text-white font-semibold py-3 px-8 rounded-full transform hover:scale-105 transition-all duration-300 shadow-lg">
+                            <span>Download CV</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Visual Element -->
+                <div class="flex justify-center lg:justify-end animate-slide-up">
+                    <div class="bg-white dark:bg-gray-700 rounded-xl p-8 shadow-lg">
+                        <div class="text-center">
+                            <i class="fas fa-chart-line text-6xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Data Analytics</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Transforming insights into action</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="skills" class="py-20 bg-white dark:bg-gray-900">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 animate-slide-up">
-                <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Technical Skills</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- SQL -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-database text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">SQL</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced database querying and optimization</p>
-                    </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Left Side - Content -->
+                <div class="animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-6">Technical Skills</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-red-500 mb-8"></div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                        I specialize in data analysis, visualization, and database management with expertise in modern analytics tools and programming languages.
+                    </p>
                 </div>
-
-                <!-- Python -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fab fa-python text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Python</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data analysis and automation</p>
+                
+                <!-- Right Side - Skills Grid -->
+                <div class="grid md:grid-cols-2 gap-6 animate-slide-up">
+                    <!-- SQL -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-database text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">SQL</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced database querying and optimization</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Power BI -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-chart-line text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Power BI</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Business intelligence and dashboards</p>
+                    <!-- Python -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fab fa-python text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Python</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Data analysis and automation</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- PostgreSQL -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-server text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">PostgreSQL</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Database management and optimization</p>
+                    <!-- Power BI -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-chart-line text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Power BI</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Business intelligence and dashboards</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- ETL -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-cogs text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">ETL Pipelines</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data extraction and transformation</p>
+                    <!-- PostgreSQL -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-server text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">PostgreSQL</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Database management and optimization</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Jupyter -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-book text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Jupyter</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Interactive data analysis</p>
+                    <!-- ETL -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-cogs text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">ETL Pipelines</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Data extraction and transformation</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- DAX -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-calculator text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">DAX</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced data modeling</p>
+                    <!-- Jupyter -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-book text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Jupyter</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Interactive data analysis</p>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Visualization -->
-                <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
-                    <div class="text-center">
-                        <i class="fas fa-chart-pie text-4xl text-accent-500 mb-4"></i>
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Visualization</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Data storytelling and insights</p>
+                    <!-- DAX -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-calculator text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">DAX</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Advanced data modeling</p>
+                        </div>
+                    </div>
+
+                    <!-- Visualization -->
+                    <div class="skill-card bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg cursor-pointer">
+                        <div class="text-center">
+                            <i class="fas fa-chart-pie text-4xl text-accent-500 mb-4"></i>
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Visualization</h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Data storytelling and insights</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -319,16 +342,16 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-white dark:bg-gray-800">
+    <section id="projects" class="py-20 bg-gray-50 dark:bg-gray-800">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 animate-slide-up">
                 <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Featured Projects</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-red-500 mx-auto rounded-full"></div>
             </div>
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Yelp ETL Pipeline -->
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-700">
-                    <div class="h-48 bg-gradient-to-br from-accent-600 to-purple-600 flex items-center justify-center">
+                    <div class="h-48 bg-gradient-to-br from-accent-600 to-red-600 flex items-center justify-center">
                         <i class="fas fa-database text-4xl text-white"></i>
                     </div>
                     <div class="p-6">
@@ -406,11 +429,11 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="contact" class="py-20 bg-white dark:bg-gray-900">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 animate-slide-up">
                 <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Get In Touch</h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-purple-500 mx-auto rounded-full"></div>
+                <div class="w-24 h-1 bg-gradient-to-r from-accent-500 to-red-500 mx-auto rounded-full"></div>
             </div>
             <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Contact Info -->
@@ -444,7 +467,7 @@
                 </div>
 
                 <!-- Contact Form -->
-                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg animate-fade-in">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-8 shadow-lg animate-fade-in">
                     <form class="space-y-6">
                         <div>
                             <input type="text" placeholder="Your Name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200">
@@ -458,7 +481,8 @@
                         <div>
                             <textarea placeholder="Your Message" rows="5" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-transparent dark:bg-gray-700 dark:text-white transition-colors duration-200 resize-none"></textarea>
                         </div>
-                        <button type="submit" class="w-full btn-gradient text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105">
+                        <button type="submit" class="w-full btn-gradient text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i>
                             <span>Send Message</span>
                         </button>
                     </form>
