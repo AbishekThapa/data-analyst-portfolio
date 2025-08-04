@@ -11,19 +11,33 @@ A sleek, modern personal portfolio website showcasing Abishek Thapa's expertise 
 - **Interactive Elements**: Hover effects, gradient animations, and smooth transitions
 - **Professional Color Palette**: Custom accent colors with gradient effects
 
+### Content & Navigation
+- **Detailed Project Pages**: Comprehensive case studies with full analysis breakdowns
+- **Downloadable Resume**: Direct PDF download functionality for CV/resume
+- **Interactive Visualizations**: Local image assets for fast loading project charts
+- **Smooth Scrolling Navigation**: Table of contents with anchor links for detailed pages
+- **Professional Typography**: Inter font family with responsive scaling
+
 ### Sections
-1. **Hero Section**: Animated typing effect, floating profile image with gradient background
-2. **About**: Professional background with animated heading fill effects
+1. **Hero Section**: Animated typing effect with "Hi, I'm Abishek", floating profile image with gradient background
+2. **About**: Professional background with downloadable CV/resume functionality
 3. **Skills**: Interactive skill cards with hover animations showcasing technical expertise
-4. **Projects**: Featured project cards with gradient backgrounds and technology tags
+4. **Projects**: Featured project cards with links to detailed case study pages
 5. **Contact**: Functional contact form with social media integration
 6. **Navigation**: Responsive navbar with mobile menu and theme toggle
 
 ### Featured Projects
-- **Yelp Academic Dataset ETL Pipeline**: JSON processing with PostgreSQL and Jupyter Notebooks
-- **South East Queensland Bus Route Database**: GTFS data analysis with Python libraries  
-- **Power BI Australian Housing Market Dashboard**: Advanced DAX measures and data modeling
-- **SQL Optimization & Performance Tuning**: Real interview-style query challenges
+- **Yelp Academic Dataset Analysis**: Comprehensive case study with detailed findings page (`yelp_analysis.html`)
+  - ETL pipeline with Python processing 6M+ records
+  - PostgreSQL database design with ERD
+  - Statistical analysis with hypothesis testing
+  - Business insights and market recommendations
+- **South East Queensland Bus Route Analysis**: GTFS data analysis with detailed project page (`gtfs_analysis.html`)
+  - Public transport data processing
+  - Geographic and temporal analysis
+  - Service optimization insights
+- **Power BI Australian Housing Market Dashboard**: Advanced business intelligence
+- **SQL Optimization & Performance Tuning**: Real interview-style challenges
 
 ### Technical Skills Showcase
 - **SQL**: Advanced database querying and optimization
@@ -44,9 +58,11 @@ A sleek, modern personal portfolio website showcasing Abishek Thapa's expertise 
 - **Typed.js**: Animated typing effects for hero section
 
 ### External Libraries & Resources
-- **Font Awesome 6.0.0**: Professional icons for UI elements
+- **Font Awesome 6.0.0**: Professional icons for UI elements and navigation
 - **Google Fonts (Inter)**: Modern typography with multiple weights (300-800)
-- **Tailwind CSS CDN**: Latest version for rapid styling
+- **Google Fonts (Edu NSW ACT Foundation)**: Cursive font for signature/branding
+- **Tailwind CSS CDN**: Latest version for rapid styling and responsive design
+- **Typed.js 2.0.16**: Animated typing effects for hero section engagement
 
 ### Features
 - **Responsive Grid System**: Mobile-first approach with breakpoint optimization
@@ -58,14 +74,37 @@ A sleek, modern personal portfolio website showcasing Abishek Thapa's expertise 
 
 ```
 data-analyst-portfolio/
-├── index.html          # Main HTML file with complete portfolio
-├── script.js           # JavaScript for interactions and animations
-├── profile.jpeg        # Professional profile image
-├── favicon.png         # Website favicon (PNG format)
-├── favicon.ico         # Website favicon (ICO format)
-├── favicon-64.png      # 64px favicon variant
-├── test.html           # Development/testing file
-└── README.md           # Project documentation
+├── index.html              # Main portfolio homepage
+├── yelp_analysis.html      # Detailed Yelp dataset analysis case study
+├── gtfs_analysis.html      # GTFS bus route analysis project page
+├── script.js               # JavaScript for interactions and animations
+├── profile.jpeg            # Professional profile image
+├── resume.pdf              # Downloadable CV/Resume
+├── favicon.png             # Website favicon (PNG format)
+├── favicon.ico             # Website favicon (ICO format)
+├── favicon-64.png          # 64px favicon variant
+├── resources/              # Project assets and visualizations
+│   ├── yelp/              # Yelp analysis charts and diagrams
+│   │   ├── er_diagram.png
+│   │   ├── correlation_matrix_of_restaurant_features.png
+│   │   ├── distribution_of_users_by_segment.png
+│   │   ├── average_stars_given_by_user.png
+│   │   ├── city_market_opportunity_restaurant_success_analysis.png
+│   │   ├── rating_distribution_elite_vs_non_elite_users.png
+│   │   ├── top_10_most_reviewed_american_restsurant.png
+│   │   ├── top_10_cities_by_number_of_nightlife_venues.png
+│   │   ├── total_restaurant_check_ins_by_day_of_the_week.png
+│   │   └── proportion_of_all_reviews_written_by_elite_users_over_time.png
+│   └── gfts/              # GTFS analysis visualizations
+│       ├── bus_vs_train.png
+│       ├── busiest_bus_hub.png
+│       ├── busiest_train_hub.png
+│       ├── geographic_distribution_of_all_stops.png
+│       ├── hourly_activity_heatmaps.png
+│       ├── service_levels_by_day_of_the_week.png
+│       ├── top_10_bus_route.png
+│       └── weekly_activity_heatmaps.png
+└── README.md               # Project documentation
 ```
 
 ## 🎨 Design Features
@@ -135,16 +174,24 @@ data-analyst-portfolio/
 
 ### Updating Personal Information
 - **Profile Image**: Replace `profile.jpeg` with your professional photo
+- **Resume/CV**: Replace `resume.pdf` with your updated CV
 - **Contact Details**: Update email and location in the contact section
 - **Social Links**: Modify LinkedIn and GitHub URLs in the HTML
 - **Professional Summary**: Edit the hero and about section content
+- **Typing Animation**: Modify the greeting text in `script.js` Typed.js configuration
 
 ### Adding New Projects
 1. Locate the projects section in `index.html`
 2. Copy an existing project card structure
 3. Update the gradient background color class
 4. Modify project title, description, and technology tags
-5. Update the project link URL
+5. Update the project link URL (can link to detailed project pages)
+6. Optionally create a new detailed project page following the structure of `yelp_analysis.html`
+
+### Managing Project Assets
+- **Images**: Store project visualizations in `resources/project-name/` directories
+- **Local Assets**: Use relative paths to resources for faster loading
+- **Detailed Pages**: Create comprehensive case studies with table of contents and anchor navigation
 
 ### Modifying Skills
 1. Find the skills grid in the HTML

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTFS Bus Route Analysis - Abishek Thapa</title>
+  <meta name="description" content="A project analyzing South East Queensland's bus routes using GTFS data, Python, and PostgreSQL to uncover transit insights.">
+  
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+    
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            inter: ['Inter', 'sans-serif'],
+            cursive: ['"Edu NSW ACT Foundation"', 'cursive']
+          },
+          colors: {
+            accent: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
+              500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a'
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    html { transition: background-color 0.3s ease, color 0.3s ease; scroll-behavior: smooth; }
+    .gradient-text {
+      background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .dark .gradient-text {
+      background: linear-gradient(135deg, #86efac 0%, #4ade80 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .btn-gradient { background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%); position: relative; overflow: hidden; }
+    .dark .btn-gradient { background: linear-gradient(135deg, #86efac 0%, #4ade80 100%); }
+    .btn-gradient::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #15803d 0%, #14532d 100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    .btn-gradient:hover::before { transform: translateX(100%); }
+    .btn-gradient span { position: relative; z-index: 1; }
+  </style>
+</head>
+<body class="font-inter bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <nav class="fixed top-0 w-full bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-lg z-50 transition-all duration-300 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex-shrink-0">
+              <a href="index.html" class="text-3xl font-cursive font-bold" style="color: #16a34a;">Abishek Thapa</a>
+            </div>
+            <div class="flex items-center space-x-8">
+              <ul class="hidden md:flex space-x-8">
+                <li><a href="index.html#home" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">Home</a></li>
+                <li><a href="index.html#about" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">About</a></li>
+                <li><a href="index.html#projects" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">Projects</a></li>
+                <li><a href="index.html#contact" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">Contact</a></li>
+              </ul>
+              <div class="flex items-center space-x-4">
+                  <button id="theme-toggle" aria-label="toggle theme" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"><i class="fas fa-sun text-yellow-500 dark:hidden"></i><i class="fas fa-moon text-blue-400 hidden dark:block"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <main id="project-detail" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 animate-fade-in">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">SEQ Public Transport Network Analysis</h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                An analytical report on the efficiency, coverage, and operational patterns of the South East Queensland transport system using GTFS data.
+            </p>
+            <div class="flex justify-center flex-wrap gap-3 mt-8">
+                <span class="px-4 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm font-medium rounded-full">Python</span>
+                <span class="px-4 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm font-medium rounded-full">GTFS</span>
+                <span class="px-4 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm font-medium rounded-full">PostgreSQL</span>
+                <span class="px-4 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-sm font-medium rounded-full">Power BI</span>
+            </div>
+        </header>
+
+        <div class="prose prose-lg max-w-none dark:prose-invert">
+            
+            <!-- === ADDED TABLE OF CONTENTS === -->
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-12 border-l-4 border-green-500">
+                <h2 class="text-2xl font-bold mt-0">Table of Contents</h2>
+                <ol class="list-decimal pl-5 mt-4 space-y-2">
+                    <li><a href="#summary" class="text-green-600 dark:text-green-400 hover:underline">Executive Summary</a></li>
+                    <li><a href="#introduction" class="text-green-600 dark:text-green-400 hover:underline">Introduction</a></li>
+                    <li><a href="#problem" class="text-green-600 dark:text-green-400 hover:underline">Problem Statement & Hypotheses</a></li>
+                    <li><a href="#methodology" class="text-green-600 dark:text-green-400 hover:underline">Methodology</a></li>
+                    <li><a href="#findings" class="text-green-600 dark:text-green-400 hover:underline">Analysis and Findings</a></li>
+                    <li><a href="#limitations" class="text-green-600 dark:text-green-400 hover:underline">Limitations of the Analysis</a></li>
+                    <li><a href="#dashboard" class="text-green-600 dark:text-green-400 hover:underline">Interactive Dashboard Analysis in Power BI</a></li>
+                    <li><a href="#conclusion" class="text-green-600 dark:text-green-400 hover:underline">Conclusion & Recommendations</a></li>
+                </ol>
+            </div>
+
+            <h2 id="summary" class="text-3xl font-bold border-l-4 border-green-500 pl-4">1. Executive Summary</h2>
+            <p>This report presents a comprehensive analysis of the South East Queensland (SEQ) public transport network using scheduled data from Translink's General Transit Feed Specification (GTFS). The analysis reveals a system that is heavily optimized for weekday commuters and geographically centered around the Brisbane CBD. Key findings indicate that a small number of high-frequency bus routes, such as the CityGlider (60 & 61) and university-focused Route 66, form the backbone of the network. Service levels drop by nearly 50% on weekends. The network's busiest hubs, including King George Square Bus Station and Central Train Station, are concentrated in the CBD and exhibit classic bimodal peak activity during morning (7-9 AM) and evening (4-6 PM) commuter periods. This analysis provides a foundational understanding of the network's operational structure, which is critical for urban planning and service optimization.</p>
+            
+            <h2 id="introduction" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">2. Introduction</h2>
+            <p>Understanding the structure and usage patterns of a public transport network is essential for effective urban planning, resource allocation, and improving citizen mobility. This project undertakes a deep-dive analysis of the SEQ public transport system, operated by Translink. By processing and analyzing the publicly available GTFS data, we aim to transform raw, tabular data into actionable insights about the network's scale, key corridors, operational patterns, and geographic distribution.</p>
+            
+            <h2 id="problem" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">3. Problem Statement & Hypotheses</h2>
+            <p>The primary challenge is to process a complex, multi-file relational dataset to answer fundamental questions about the network's characteristics. This project tests the following hypotheses:</p>
+            <ol class="list-decimal pl-5 space-y-3">
+                <li><strong>Route Dominance:</strong> A small subset of bus routes will account for a disproportionately large share of all scheduled trips.</li>
+                <li><strong>Weekday Bias:</strong> Scheduled services will be significantly more frequent on weekdays compared to weekends.</li>
+                <li><strong>CBD Centrality:</strong> The busiest transport hubs will be geographically concentrated in Brisbane's CBD.</li>
+                <li><strong>Commuter Peaks:</strong> Network activity at major hubs will peak during typical morning and evening rush hours.</li>
+            </ol>
+            
+            <h2 id="methodology" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">4. Methodology</h2>
+            <p>The analysis was conducted using a two-phase methodology: first, an ETL process using a Python script to ingest, clean, and load raw GTFS <code>.txt</code> files into a PostgreSQL database. Second, a Jupyter Notebook was used to perform SQL queries—including advanced window functions like <code>RANK()</code> and <code>ROW_NUMBER()</code>—to extract insights, which were then visualized using Python libraries (Matplotlib, Seaborn, Folium).</p>
+
+            <h2 id="findings" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">5. Analysis and Findings</h2>
+            
+            <h3 class="text-2xl font-semibold mt-8">5.1. Top 10 Most Frequent Routes</h3>
+            <p><strong>Finding:</strong> As predicted by <strong>Hypothesis 1</strong>, a few routes dominate service frequency. The <strong>CityGlider (60, 61)</strong> and <strong>UQ Lakes (66)</strong> routes have substantially more scheduled trips than others, establishing them as the primary arteries of the bus network.</p>
+            <div class="my-8"><img src="resources/gfts/top_10_bus_route.png" alt="Bar Chart of Top 10 Frequent Routes" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Most Frequent Routes chart.</p></div>
+
+            <h3 class="text-2xl font-semibold mt-8">5.2. Service Levels by Day of the Week</h3>
+            <p><strong>Finding:</strong> This chart strongly supports <strong>Hypothesis 2</strong>. There is a clear and significant drop in service levels on Saturday and Sunday compared to the consistent, high volume of trips from Monday to Friday.</p>
+            <div class="my-8"><img src="resources/gfts/service_levels_by_day_of_the_week.png" alt="Bar Chart of Service Levels by Day of the Week" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Service Levels by Day of the Week chart.</p></div>
+
+            <h3 class="text-2xl font-semibold mt-8">5.3. Busiest Transport Hubs & Geographic Distribution</h3>
+            <p><strong>Finding:</strong> The busiest bus and train stops are overwhelmingly located in or directly adjacent to the Brisbane CBD (e.g., King George Square, Cultural Centre, Central Station). This confirms <strong>Hypothesis 3</strong>, highlighting the CBD's role as the network's central nexus.</p>
+            <div class="my-8"><img src="resources/gfts/geographic_distribution_of_all_stops.png" alt="Map of All SEQ Bus Stops" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Folium map of all stops.</p></div>
+
+            <h3 class="text-2xl font-semibold mt-8">5.4. Weekly & Hourly Activity Heatmaps</h3>
+            <p><strong>Finding:</strong> These heatmaps provide compelling evidence for <strong>Hypothesis 4</strong>. The hourly heatmap clearly illustrates the bimodal commuter pattern, with activity peaking between <strong>7-9 AM and 4-6 PM</strong>.</p>
+            <div class="my-8"><img src="resources/gfts/hourly_activity_heatmaps.png" alt="Heatmap of Hourly Activity" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Hourly Activity heatmap.</p></div>
+            
+            <h3 class="text-2xl font-semibold mt-8">5.5. Analysis with Window Functions</h3>
+            <p><strong>Finding:</strong> Using <code>RANK()</code> and <code>DENSE_RANK()</code>, the analysis identified the routes with the most extensive coverage. The <strong>"Great Circle Line" routes (598/599)</strong> service the highest number of unique stops, indicating they are crucial for connecting a wide range of suburbs rather than just a direct point-to-point corridor.</p>
+            <pre class="bg-gray-800 dark:bg-gray-900 text-white rounded-lg p-4 font-mono text-sm overflow-x-auto"><code>Top 15 Bus Routes Ranked by Stops:
+            route_short_name                route_long_name  stop_count  rank_val
+            0               599     Great Circle Line anti-clockwise         173         1
+            1               598        Great Circle Line clockwise           172         2
+            2               330  Bracken Ridge to City, Queen Street         109         3
+    </code></pre>
+
+            <h2 id="limitations" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">6. Limitations of the Analysis</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Scheduled vs. Actual Data:</strong> This analysis is based on the GTFS schedule. It does not reflect real-world conditions such as traffic delays, vehicle breakdowns, or trip cancellations.</li>
+                <li><strong>No Passenger Data:</strong> The metric "activity count" is a proxy for how "busy" a stop is and does not represent actual passenger numbers.</li>
+                <li><strong>Static Dataset:</strong> The analysis is a snapshot based on a single GTFS data release and does not capture seasonal variations or long-term trends.</li>
+            </ul>
+
+            <h2 id="dashboard" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">7. Interactive Dashboard Analysis in Power BI</h2>
+            <p>To make the findings accessible and allow for dynamic, user-driven exploration, a comprehensive dashboard was developed using Microsoft Power BI. The dashboard includes high-level KPIs, interactive slicers, and a geospatial map, allowing users to dynamically filter and explore the data, confirming all initial hypotheses while discovering more nuanced patterns.</p>
+            <div class="my-8"><img src="https://placehold.co/800x450/16a34a/ffffff?text=Power+BI+Dashboard+Screenshot" alt="Power BI Dashboard Screenshot" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Power BI Dashboard screenshot.</p></div>
+
+            <h2 id="conclusion" class="text-3xl font-bold border-l-4 border-green-500 pl-4 mt-12">8. Conclusion & Recommendations</h2>
+            <p>This analysis successfully processed raw transit data to reveal the core operational characteristics of the SEQ public transport network. The findings confirmed all initial hypotheses, painting a picture of a system that is CBD-centric and tailored to a weekday-commuting population.</p>
+            <p><strong>Recommendations for future work include:</strong></p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>Integrate real-time GTFS data to analyze on-time performance and identify routes prone to delays.</li>
+                <li>Use network graph analysis to identify "transport deserts" or areas with poor access to key amenities.</li>
+                <li>Develop a more advanced interactive dashboard to allow planners and the public to explore these insights dynamically.</li>
+            </ul>
+
+            <div class="text-center mt-12 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold">Explore the Code</h3>
+                <p class="mt-2">For a detailed look at the Python scripts, ETL process, and SQL queries used in this analysis, please visit the project repository on GitHub.</p>
+                <a href="https://github.com/AbishekThapa/south-east-queensland-public-transport-analysi-python-sql" target="_blank" class="inline-block mt-4 btn-gradient text-white font-semibold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fab fa-github mr-2"></i>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="text-center mt-20">
+            <a href="index.html#projects" class="inline-block btn-gradient text-white font-semibold py-3 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>Back to All Projects</span>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p>© 2025 Abishek Thapa. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

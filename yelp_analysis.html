@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yelp Dataset: In-Depth Analysis & Findings - Abishek Thapa</title>
+  <meta name="description" content="A detailed case study of the Yelp Academic Dataset, exploring business trends, user behavior, and market opportunities through SQL and data visualization.">
+  
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+    
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            inter: ['Inter', 'sans-serif'],
+            cursive: ['"Edu NSW ACT Foundation"', 'cursive']
+          },
+          colors: {
+            accent: {
+              50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa',
+              500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a'
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    html { transition: background-color 0.3s ease, color 0.3s ease; scroll-behavior: smooth;}
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .dark .gradient-text {
+      background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .btn-gradient { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); position: relative; overflow: hidden; }
+    .dark .btn-gradient { background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%); }
+    .btn-gradient::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    .btn-gradient:hover::before { transform: translateX(100%); }
+    .btn-gradient span { position: relative; z-index: 1; }
+  </style>
+</head>
+<body class="font-inter bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <nav class="fixed top-0 w-full bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-lg z-50 transition-all duration-300 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex-shrink-0">
+              <a href="index.html" class="text-3xl font-cursive font-bold gradient-text">Abishek Thapa</a>
+            </div>
+            <div class="flex items-center space-x-8">
+              <ul class="hidden md:flex space-x-8">
+                <li><a href="index.html#home" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Home<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="index.html#about" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">About<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="index.html#projects" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Projects<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+                <li><a href="index.html#contact" class="text-accent-600 hover:text-accent-700 dark:text-accent-400 dark:hover:text-accent-300 font-medium transition-colors duration-200 relative group">Contact<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-500 to-blue-600 transition-all duration-300 group-hover:w-full"></span></a></li>
+              </ul>
+              <div class="flex items-center space-x-4">
+                  <button id="theme-toggle" aria-label="toggle theme" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"><i class="fas fa-sun text-yellow-500 dark:hidden"></i><i class="fas fa-moon text-blue-400 hidden dark:block"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <main id="project-detail" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 animate-fade-in">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">Yelp Dataset Analysis: Key Findings</h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                An exploration of business characteristics, user behavior, and market trends from the Yelp Academic Dataset using SQL and Matplotlib.
+            </p>
+        </header>
+
+        <div class="prose prose-lg max-w-none dark:prose-invert">
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-12 border-l-4 border-accent-500">
+                <h2 class="text-2xl font-bold mt-0">Table of Contents</h2>
+                <ol class="list-decimal pl-5 mt-4 space-y-2">
+                    <li><a href="#hypotheses" class="text-accent-600 dark:text-accent-400 hover:underline">Hypotheses</a></li>
+                    <li><a href="#findings" class="text-accent-600 dark:text-accent-400 hover:underline">Key Findings and Visualizations</a></li>
+                    <li><a href="#limitations" class="text-accent-600 dark:text-accent-400 hover:underline">Limitations of the Analysis</a></li>
+                    <li><a href="#conclusion" class="text-accent-600 dark:text-accent-400 hover:underline">Conclusion and Future Work</a></li>
+                </ol>
+            </div>
+
+            <h2 id="hypotheses" class="text-3xl font-bold border-l-4 border-accent-500 pl-4">1. Hypotheses</h2>
+            <p>Before conducting the analysis, several hypotheses were formulated to guide the investigation:</p>
+            <ol class="list-decimal pl-5 space-y-3">
+                <li><strong>Popularity vs. Quality:</strong> A higher number of reviews will not be a strong predictor of a higher average star rating.</li>
+                <li><strong>Experienced User Criticism:</strong> More active and "Elite" users will be more critical and exhibit different rating patterns than casual users.</li>
+                <li><strong>Weekend Peak:</strong> Customer traffic, as measured by check-ins, will be significantly higher on weekends.</li>
+                <li><strong>Market Saturation:</strong> Cities with the most restaurants will not necessarily be the best markets for a new business.</li>
+            </ol>
+
+            <h2 id="findings" class="text-3xl font-bold border-l-4 border-accent-500 pl-4 mt-12">2. Key Findings and Visualizations</h2>
+
+            <h3 class="text-2xl font-semibold mt-8">Analysis 1: High-Level Business Statistics</h3>
+            <p><strong>Finding:</strong> The analysis shows that the average star rating across all businesses is <strong>3.60</strong>. The review counts vary dramatically, with some businesses having as few as 3 reviews and the most popular having over 7,500, indicating a wide distribution of business popularity.</p>
+
+            <h3 class="text-2xl font-semibold mt-8">Analysis 2: Top 10 Most Reviewed Restaurants</h3>
+            <p><strong>Finding:</strong> A small number of American restaurants, primarily located in major cities, dominate the review landscape. This concentration highlights the strong brand recognition and high customer volume of market leaders.</p>
+            <div class="my-8"><img src="https://placehold.co/800x450/3b82f6/ffffff?text=Chart:+Top+10+Most+Reviewed+Restaurants" alt="Chart of Top 10 Most Reviewed Restaurants" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Top 10 Most Reviewed Restaurants chart.</p></div>
+
+            <h3 class="text-2xl font-semibold mt-8">Analysis 3: Correlation for Highly-Rated Restaurants</h3>
+            <p><strong>Finding:</strong> Confirming <strong>Hypothesis 1</strong>, the `review_count` has a very weak correlation with a business being highly-rated (>4.0 stars). The strongest predictors are, logically, the overall star rating and the average stars from individual reviews.</p>
+            <div class="my-8"><img src="https://placehold.co/800x450/3b82f6/ffffff?text=Correlation+Matrix+Heatmap" alt="Correlation Matrix for Restaurant Features" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Correlation Matrix.</p></div>
+            
+            <h3 class="text-2xl font-semibold mt-8">Analysis 4 & 5: User Segments and Rating Behavior</h3>
+            <p><strong>Finding:</strong> Supporting <strong>Hypothesis 2</strong>, "Power Users" (those with high star/fan counts) give higher average ratings than "Engaged Users". However, the user base is dominated by "Casual" users, meaning that while Power Users are more generous with ratings, their overall impact is limited by their small numbers.</p>
+            <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div><img src="https://placehold.co/400x300/3b82f6/ffffff?text=Chart:+Avg+Stars+by+User+Segment" alt="Chart of Average Stars by User Segment" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Average Stars by User Segment chart.</p></div>
+                <div><img src="https://placehold.co/400x300/3b82f6/ffffff?text=Chart:+Distribution+of+User+Segments" alt="Chart of User Segment Distribution" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Distribution of User Segments chart.</p></div>
+            </div>
+
+            <h3 class="text-2xl font-semibold mt-8">Analysis 6 & 7: City Market & Nightlife Opportunity</h3>
+            <p><strong>Finding:</strong> Supporting <strong>Hypothesis 4</strong>, the best markets are not necessarily the biggest. Cities like <strong>Philadelphia</strong> fall in the "sweet spot" of high average ratings and high review counts, representing prime opportunities. Philadelphia is also the clear leader in the quantity of "Nightlife" venues, though other cities like Tampa and Indianapolis boast higher average quality in this category.</p>
+            <div class="my-8"><img src="https://placehold.co/800x450/3b82f6/ffffff?text=Scatter+Plot:+City+Market+Opportunity" alt="Scatter Plot of City Market Opportunity" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the City Market Opportunity plot.</p></div>
+
+            <h3 class="text-2xl font-semibold mt-8">Analysis 8: Weekly Customer Traffic</h3>
+            <p><strong>Finding:</strong> The data overwhelmingly supports <strong>Hypothesis 3</strong>. Customer check-ins peak dramatically on <strong>Saturday and Sunday</strong>, confirming the critical importance of weekend business for restaurants.</p>
+            <div class="my-8"><img src="https://placehold.co/800x450/3b82f6/ffffff?text=Bar+Chart:+Check-ins+by+Day" alt="Bar Chart of Check-ins by Day" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Check-ins by Day of the Week chart.</p></div>
+
+            <h3 class="text-2xl font-semibold mt-8">Analysis 9: Elite vs. Non-Elite User Rating Patterns</h3>
+            <p><strong>Finding:</strong> Further supporting <strong>Hypothesis 2</strong>, Elite users are less likely to give extreme 1-star or 5-star reviews, preferring more nuanced ratings. Interestingly, the proportion of reviews from Elite users peaked around 2007 and has been on a gradual decline, suggesting a shift in the platform's user dynamics.</p>
+            <div class="my-8"><img src="https://placehold.co/800x450/3b82f6/ffffff?text=Chart:+Elite+vs+Non-Elite+Ratings" alt="Chart of Elite vs Non-Elite Rating Distribution" class="rounded-lg shadow-lg border dark:border-gray-700 w-full h-auto"><p class="text-center text-sm mt-2 text-gray-500 dark:text-gray-400">Placeholder for the Elite vs. Non-Elite Rating Distribution chart.</p></div>
+            
+            <h2 id="limitations" class="text-3xl font-bold border-l-4 border-accent-500 pl-4 mt-12">3. Limitations of the Analysis</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Data Timeliness:</strong> The dataset is a periodic snapshot and does not represent real-time data.</li>
+                <li><strong>Geographic Bias:</strong> The data is heavily focused on specific metropolitan areas in North America and Europe.</li>
+                <li><strong>Incomplete Data:</strong> Some fields were not consistently populated, requiring data cleaning and imputation strategies.</li>
+                <li><strong>Definition of "Success":</strong> The analysis uses proxies like star ratings and review counts. True business success also involves financial metrics not present in the dataset.</li>
+            </ul>
+
+            <h2 id="conclusion" class="text-3xl font-bold border-l-4 border-accent-500 pl-4 mt-12">4. Conclusion and Future Work</h2>
+            <p>This project successfully validated our initial hypotheses and yielded key insights into the Yelp ecosystem. By systematically analyzing business attributes, user segments, market dynamics, and operational rhythms, we have painted a data-driven picture of the restaurant industry that can directly inform business strategy.</p>
+            <p><strong>Future work could include:</strong></p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Natural Language Processing (NLP):</strong> Performing topic modeling on review text to identify specific drivers of positive or negative sentiment (e.g., "service," "ambiance," "price").</li>
+                <li><strong>Predictive Modeling:</strong> Building a machine learning model to predict a new restaurant's potential star rating based on its attributes.</li>
+                <li><strong>Geospatial Analysis:</strong> Using geospatial libraries to map restaurant "hotspots" and "deserts" within a city to identify optimal locations.</li>
+            </ul>
+        </div>
+
+        <div class="text-center mt-20">
+            <a href="index.html#projects" class="inline-block btn-gradient text-white font-semibold py-3 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>Back to All Projects</span>
+            </a>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p>© 2025 Abishek Thapa. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
