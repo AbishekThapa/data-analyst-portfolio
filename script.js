@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Typing animation
     if (document.getElementById('typing-text')) {
         var options = {
-            strings: ["Hi, It is <span class='heading-fill-animation'><span class='heading-text gradient-text'>Abishek</span></span>"],
+            strings: ["Hi, I'm <span class='heading-fill-animation'><span class='heading-text gradient-text'>Abishek</span></span>"],
             typeSpeed: 50,
             startDelay: 500,
             loop: false,
