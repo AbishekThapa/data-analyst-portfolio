@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queensland Road Crash Analysis - Abishek Thapa</title>
+  <meta name="description" content="An in-depth analysis of Queensland road crash data (2001-2024) using Python, SQL, and Power BI to identify key trends and risk factors.">
+  
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+    
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { 
+            inter: ['Inter', 'sans-serif'],
+            cursive: ['"Edu NSW ACT Foundation"', 'cursive']
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.6s ease-out',
+          },
+          keyframes: {
+            fadeIn: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    html { transition: background-color 0.3s ease, color 0.3s ease; scroll-behavior: smooth; }
+    /* === PURPLE THEME FOR THIS PAGE === */
+    .gradient-text {
+      background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .dark .gradient-text {
+      background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .btn-gradient { background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%); position: relative; overflow: hidden; }
+    .dark .btn-gradient { background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%); }
+    .btn-gradient::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    .btn-gradient:hover::before { transform: translateX(100%); }
+    .btn-gradient span { position: relative; z-index: 1; }
+    
+    /* === NEW STYLES FOR IMAGE PLACEHOLDERS === */
+    .image-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 250px; /* Ensures the box has a size */
+        border-radius: 0.5rem;
+        border: 1px solid #e9d5ff; /* Light purple border */
+        background-color: #faf5ff; /* Very light purple background */
+    }
+    .dark .image-placeholder {
+        border-color: #5b21b6; /* Dark purple border */
+        background-color: #2e1065; /* Very dark purple background */
+    }
+    /* Style the text that appears when an image is broken */
+    .image-placeholder img {
+        color: #9333ea; /* Purple text color */
+        font-weight: 500;
+        text-align: center;
+    }
+    .dark .image-placeholder img {
+        color: #c084fc; /* Lighter purple for dark mode */
+    }
+  </style>
+</head>
+<body class="font-inter bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <nav class="fixed top-0 w-full bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-lg z-50 transition-all duration-300 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center h-16">
+            <div class="flex-shrink-0">
+              <a href="index.html" class="text-3xl font-cursive font-bold" style="color: #7c3aed;">Abishek Thapa</a>
+            </div>
+            <div class="flex items-center space-x-8">
+              <ul class="hidden md:flex space-x-8">
+                <li><a href="index.html#home" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">Home</a></li>
+                <li><a href="index.html#about" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">About</a></li>
+                <li><a href="index.html#projects" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">Projects</a></li>
+                <li><a href="index.html#contact" class="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white font-medium transition-colors duration-200">Contact</a></li>
+              </ul>
+              <div class="flex items-center space-x-4">
+                  <button id="theme-toggle" aria-label="toggle theme" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200"><i class="fas fa-sun text-yellow-500 dark:hidden"></i><i class="fas fa-moon text-blue-400 hidden dark:block"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    <main id="project-detail" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 animate-fade-in">
+        
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">Queensland Road Crash Analysis</h1>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                A comprehensive analysis of road crash data (2001-2024) to identify key trends, risk factors, and geospatial hotspots.
+            </p>
+        </header>
+
+        <div class="prose prose-lg max-w-none dark:prose-invert">
+            
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg mb-12 border-l-4 border-purple-500">
+                <h2 class="text-2xl font-bold mt-0">Table of Contents</h2>
+                <ol class="list-decimal pl-5 mt-4 space-y-2">
+                    <li><a href="#toc-1" class="text-purple-600 dark:text-purple-400 hover:underline">Crashes by Day of Week</a></li>
+                    <li><a href="#toc-2" class="text-purple-600 dark:text-purple-400 hover:underline">Top Suburbs by Crash Count</a></li>
+                    <li><a href="#toc-3" class="text-purple-600 dark:text-purple-400 hover:underline">Crashes by Month</a></li>
+                    <li><a href="#toc-4" class="text-purple-600 dark:text-purple-400 hover:underline">Yearly Crash Trends</a></li>
+                    <li><a href="#toc-5" class="text-purple-600 dark:text-purple-400 hover:underline">Hourly and Daily Crash Hotspots</a></li>
+                    <li><a href="#toc-6" class="text-purple-600 dark:text-purple-400 hover:underline">Daily Crash Patterns in Top Suburbs</a></li>
+                    <li><a href="#toc-7" class="text-purple-600 dark:text-purple-400 hover:underline">Factors Influencing Fatal Casualties</a></li>
+                    <li><a href="#toc-8" class="text-purple-600 dark:text-purple-400 hover:underline">Geospatial Mapping of Recent Crashes</a></li>
+                    <li><a href="#toc-9" class="text-purple-600 dark:text-purple-400 hover:underline">Crashes by Atmospheric Condition</a></li>
+                    <li><a href="#toc-10" class="text-purple-600 dark:text-purple-400 hover:underline">Crashes by Lighting Condition</a></li>
+                    <li><a href="#limitations" class="text-purple-600 dark:text-purple-400 hover:underline">Overall Project Limitations</a></li>
+                    <li><a href="#future-work" class="text-purple-600 dark:text-purple-400 hover:underline">Future Work</a></li>
+                </ol>
+            </div>
+
+            <h2 id="toc-1" class="text-3xl font-bold border-l-4 border-purple-500 pl-4">1. Crashes by Day of Week</h2>
+            <p><strong>Findings:</strong> Crash counts peak significantly on <strong>Friday</strong>, followed by Thursday and Wednesday, suggesting a strong correlation with the typical work week.</p>
+            <div class="my-8 image-placeholder"><img src="images/01_crashes_by_day.png" alt="Bar chart showing crashes by day of week" class="w-full h-auto"></div>
+
+            <h2 id="toc-2" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">2. Top Suburbs by Crash Count</h2>
+            <p><strong>Findings:</strong> The analysis identifies a clear list of the top 10 suburbs with the most crashes, likely major commercial or transport hubs.</p>
+            <div class="my-8 image-placeholder"><img src="images/02_top_suburbs.png" alt="Bar chart of top 10 suburbs by crash count" class="w-full h-auto"></div>
+
+            <h2 id="toc-3" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">3. Crashes by Month</h2>
+            <p><strong>Findings:</strong> The data shows specific months with higher crash frequencies, which can help in planning seasonal road safety campaigns.</p>
+            <div class="my-8 image-placeholder"><img src="images/03_crashes_by_month.png" alt="Bar chart showing crashes by month" class="w-full h-auto"></div>
+
+            <h2 id="toc-4" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">4. Yearly Crash Trends</h2>
+            <p><strong>Findings:</strong> The line plot reveals the long-term trend, highlighting years of progress in road safety and years where incidents spiked.</p>
+            <div class="my-8 image-placeholder"><img src="images/04_yearly_trends.png" alt="Line plot of yearly crash trends" class="w-full h-auto"></div>
+            
+            <h2 id="toc-5" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">5. Hourly and Daily Crash Hotspots</h2>
+            <p><strong>Findings:</strong> The heatmap confirms the hypothesis, showing a concentration during the <strong>afternoon hours (3-6 PM) on weekdays</strong>, with <strong>Friday afternoon being the absolute peak</strong>.</p>
+            <div class="my-8 image-placeholder"><img src="images/05_crash_heatmap.png" alt="Heatmap of crashes by day and hour" class="w-full h-auto"></div>
+            
+            <h2 id="toc-6" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">6. Daily Crash Patterns in Top Suburbs</h2>
+            <p><strong>Findings:</strong> Most high-incident suburbs follow the general trend of a Friday peak, but some show a steeper increase than others, indicating different weekly traffic rhythms.</p>
+            <div class="my-8 image-placeholder"><img src="images/06_daily_patterns_suburbs.png" alt="Line plot of daily crash patterns in top suburbs" class="w-full h-auto"></div>
+            
+            <h2 id="toc-7" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">7. Factors Influencing Fatal Casualties</h2>
+            <p><strong>Findings:</strong> The average number of fatalities per crash increases dramatically with the speed limit. <strong>"Darkness - Not Lighted"</strong> is by far the most dangerous lighting condition for fatalities.</p>
+            <div class="my-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="image-placeholder"><img src="images/07a_fatalities_speed.png" alt="Bar chart of fatalities by speed limit" class="w-full h-auto"></div>
+                <div class="image-placeholder"><img src="images/07b_fatalities_lighting.png" alt="Bar chart of fatalities by lighting condition" class="w-full h-auto"></div>
+            </div>
+
+            <h2 id="toc-8" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">8. Geospatial Mapping of Recent Crashes</h2>
+            <p><strong>Findings:</strong> The interactive Folium map clearly shows that crashes are heavily clustered along major roads and intersections, allowing for drill-down into specific hotspots.</p>
+            <div class="my-8 image-placeholder"><img src="images/08_folium_map.png" alt="Screenshot of the interactive crash map" class="w-full h-auto"></div>
+            
+            <h2 id="toc-9" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">9. Crashes by Atmospheric Condition</h2>
+            <p><strong>Findings:</strong> The vast majority of crashes occur in <strong>clear weather</strong>, likely because this is the most frequent driving condition, not because it is inherently safer.</p>
+            <div class="my-8 image-placeholder"><img src="images/09_atmospheric_conditions.png" alt="Bar chart of crashes by atmospheric condition" class="w-full h-auto"></div>
+
+            <h2 id="toc-10" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">10. Crashes by Lighting Condition</h2>
+            <p><strong>Findings:</strong> A large majority of crashes occur during <strong>Daylight</strong>, which provides a baseline for understanding the relative frequency of crashes in other conditions.</p>
+            <div class="my-8 image-placeholder"><img src="images/10_lighting_pie_chart.png" alt="Pie chart of crashes by lighting condition" class="w-full h-auto"></div>
+
+            <h2 id="limitations" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">11. Overall Project Limitations</h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Reporting Bias:</strong> The data only includes crashes that were reported. Minor incidents may be underrepresented.</li>
+                <li><strong>Data Accuracy:</strong> There may be errors in the recorded data. Missing values in key columns limit the scope of certain analyses.</li>
+                <li><strong>Correlation vs. Causation:</strong> This analysis identifies correlations but does not prove causation.</li>
+            </ul>
+
+            <h2 id="future-work" class="text-3xl font-bold border-l-4 border-purple-500 pl-4 mt-12">12. Future Work</h2>
+            <p>Based on these findings, future analysis could explore:</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>Crash Rate Analysis:</strong> Normalize crash counts by traffic volume or road length to find truly dangerous areas.</li>
+                <li><strong>Severity Modeling:</strong> Build a predictive model to identify the factors most indicative of a severe or fatal crash.</li>
+                <li><strong>Holiday Impact:</strong> Analyze the specific impact of public holidays on crash frequency and location.</li>
+                <li><strong>Time Series Forecasting:</strong> Use historical data to forecast future crash counts.</li>
+            </ul>
+        </div>
+
+        <div class="text-center mt-12 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-2xl font-bold">Explore the Code</h3>
+                <p class="mt-2">For a detailed look at the Python scripts, ETL process, and SQL queries used in this analysis, please visit the project repository on GitHub.</p>
+                <a href="https://github.com/AbishekThapa/queensland-crash-analysis" target="_blank" class="inline-block mt-4 btn-gradient text-white font-semibold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fab fa-github mr-2"></i>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
+
+        <div class="text-center mt-20">
+            <a href="index.html#projects" class="inline-block btn-gradient text-white font-semibold py-3 px-8 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg">
+                <i class="fas fa-arrow-left mr-2"></i>
+                <span>Back to All Projects</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p>&copy; 2025 Abishek Thapa. All Rights Reserved.</p>
+        </div>
+      </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
