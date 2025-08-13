@@ -25,6 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
         closeIcon.classList.toggle('hidden');
     });
 
+    // Wave emoji shake animation
+    const waveEmoji = document.getElementById('wave-emoji');
+    if (waveEmoji) {
+        waveEmoji.addEventListener('click', () => {
+            waveEmoji.classList.remove('animate-shake');
+            // Force reflow to restart animation
+            void waveEmoji.offsetWidth;
+            waveEmoji.classList.add('animate-shake');
+            
+            // Remove animation class after animation completes
+            setTimeout(() => {
+                waveEmoji.classList.remove('animate-shake');
+            }, 500);
+        });
+    }
+
     // Scroll-to-section functionality
     window.scrollToSection = function(sectionId) {
         const section = document.getElementById(sectionId);
@@ -56,30 +72,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('typing-text')) {
         const typingElement = document.getElementById('typing-text');
         
-        // Fade in the typing container first
+        // Ensure smooth rendering
+        typingElement.style.opacity = '1';
+        typingElement.style.willChange = 'contents';
+        
+        // Start typing animation with smoother settings
         setTimeout(() => {
-            typingElement.style.transition = 'opacity 0.5s ease-in-out';
-            typingElement.style.opacity = '1';
-            
-            // Start typing animation after fade-in
-            setTimeout(() => {
-                var options = {
-                    strings: [
-                        "<span class='heading-fill-animation'><span class='heading-text gradient-text'>Business Analyst</span></span>",
-                        "<span class='heading-fill-animation'><span class='heading-text gradient-text'>Data Analyst</span></span>"
-                    ],
-                    typeSpeed: 50,
-                    backSpeed: 30,
-                    startDelay: 0,
-                    loop: false,
-                    showCursor: false,
-                    cursorChar: '|',
-                    contentType: 'html',
-                    onComplete: (self) => { self.cursor.style.display = 'none'; },
-                };
-                var typed = new Typed('#typing-text', options);
-            }, 300);
-        }, 800);
+            var options = {
+                strings: [
+                    "<span class='gradient-text'>Business Analyst</span>",
+                    "<span class='gradient-text'>Data Analyst</span>"
+                ],
+                typeSpeed: 80,
+                backSpeed: 50,
+                backDelay: 2500,
+                startDelay: 500,
+                loop: true,
+                showCursor: false,
+                cursorChar: '|',
+                contentType: 'html',
+                smartBackspace: true,
+                fadeOut: false,
+                fadeOutClass: 'typed-fade-out',
+                fadeOutDelay: 0
+            };
+            var typed = new Typed('#typing-text', options);
+        }, 1000);
     }
 
 
